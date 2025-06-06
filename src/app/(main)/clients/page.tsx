@@ -6,11 +6,12 @@ import { AppHeader } from "@/components/layout/AppHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ClientCard } from "@/components/clients/ClientCard"; // Updated import path
-import type { Client } from "@/types"; // Updated type import
-import { DUMMY_CLIENTS } from "@/lib/constants"; // Updated constant import
-import { PlusCircle, Search, LayoutGrid, List } from "lucide-react";
+import { ClientCard } from "@/components/clients/ClientCard";
+import type { Client, ClientStatus, ClientType } from "@/types";
+import { DUMMY_CLIENTS, CLIENT_STATUSES, CLIENT_TYPES } from "@/lib/constants";
+import { PlusCircle, Search, LayoutGrid, List, Filter as FilterIcon, X } from "lucide-react";
 import Link from "next/link";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -18,21 +19,26 @@ export default function ClientsPage() {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [currentPage, setCurrentPage] = React.useState(1);
   const [viewMode, setViewMode] = React.useState<"grid" | "list">("grid");
+  const [typeFilter, setTypeFilter] = React.useState<ClientType | "all">("all");
+  const [statusFilter, setStatusFilter] = React.useState<ClientStatus | "all">("all");
 
   const filteredClients = React.useMemo(() => {
-    return DUMMY_CLIENTS.filter(client => { // Renamed variable
+    return DUMMY_CLIENTS.filter(client => {
       const name = `${client.firstName} ${client.lastName}`;
       const matchesSearch = searchTerm.toLowerCase() === "" ||
         name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (client.companyName && client.companyName.toLowerCase().includes(searchTerm.toLowerCase())) ||
         client.email.toLowerCase().includes(searchTerm.toLowerCase());
       
-      return matchesSearch;
+      const matchesType = typeFilter === "all" || client.clientType === typeFilter;
+      const matchesStatus = statusFilter === "all" || client.status === statusFilter;
+      
+      return matchesSearch && matchesType && matchesStatus;
     });
-  }, [searchTerm]);
+  }, [searchTerm, typeFilter, statusFilter]);
 
   const totalPages = Math.ceil(filteredClients.length / ITEMS_PER_PAGE);
-  const paginatedClients = filteredClients.slice( // Renamed variable
+  const paginatedClients = filteredClients.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
@@ -43,7 +49,7 @@ export default function ClientsPage() {
   
   React.useEffect(() => {
     setCurrentPage(1); 
-  }, [searchTerm]);
+  }, [searchTerm, typeFilter, statusFilter]);
 
   return (
     <>
@@ -69,44 +75,82 @@ export default function ClientsPage() {
         </div>
         
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="relative flex-grow w-full md:w-auto">
+          <div className="relative flex-grow w-full md:max-w-xs">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="search"
               placeholder="Search clients..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 w-full bg-card font-light"
+              className="pl-10 pr-10 w-full bg-card font-light"
             />
+            {searchTerm && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-1.5 top-1/2 h-7 w-7 -translate-y-1/2"
+                onClick={() => setSearchTerm("")}
+              >
+                <X className="h-4 w-4" />
+                <span className="sr-only">Clear search</span>
+              </Button>
+            )}
           </div>
-          <div className="flex items-center gap-1 p-0.5 bg-muted rounded-lg">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className={`h-8 w-8 ${viewMode === 'grid' ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground'}`} 
-              onClick={() => setViewMode('grid')}
-            >
-              <LayoutGrid className="h-4 w-4" />
-              <span className="sr-only">Grid View</span>
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className={`h-8 w-8 ${viewMode === 'list' ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground'}`}
-              onClick={() => setViewMode('list')}
-              disabled 
-            >
-              <List className="h-4 w-4" />
-              <span className="sr-only">List View</span>
-            </Button>
+          <div className="flex items-center gap-2 w-full md:w-auto flex-wrap">
+            <div className="flex items-center gap-2">
+                <FilterIcon className="h-4 w-4 text-muted-foreground" />
+                <Select value={typeFilter} onValueChange={(value) => setTypeFilter(value as ClientType | "all")}>
+                    <SelectTrigger className="w-full sm:w-[150px] bg-card font-light text-sm h-9">
+                        <SelectValue placeholder="Client Type" />
+                    </SelectTrigger>
+                    <SelectContent className="font-light text-sm">
+                        <SelectItem value="all">All Types</SelectItem>
+                        {CLIENT_TYPES.map(type => (
+                            <SelectItem key={type} value={type}>{type}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+                <Select value={statusFilter} onValueChange={(value) => setStatusFilter(value as ClientStatus | "all")}>
+                    <SelectTrigger className="w-full sm:w-[150px] bg-card font-light text-sm h-9">
+                        <SelectValue placeholder="Status" />
+                    </SelectTrigger>
+                    <SelectContent className="font-light text-sm">
+                        <SelectItem value="all">All Statuses</SelectItem>
+                        {CLIENT_STATUSES.map(status => (
+                            <SelectItem key={status} value={status}>{status}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </div>
+            <div className="flex items-center gap-1 p-0.5 bg-muted rounded-lg">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className={`h-8 w-8 ${viewMode === 'grid' ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground'}`} 
+                onClick={() => setViewMode('grid')}
+              >
+                <LayoutGrid className="h-4 w-4" />
+                <span className="sr-only">Grid View</span>
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className={`h-8 w-8 ${viewMode === 'list' ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground'}`}
+                onClick={() => setViewMode('list')}
+                disabled 
+              >
+                <List className="h-4 w-4" />
+                <span className="sr-only">List View</span>
+              </Button>
+            </div>
           </div>
         </div>
 
         {viewMode === 'grid' ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {paginatedClients.length > 0 ? ( // Renamed variable
-              paginatedClients.map(client => ( // Renamed variable
-                <ClientCard key={client.id} client={client} /> // Updated component and prop
+            {paginatedClients.length > 0 ? (
+              paginatedClients.map(client => (
+                <ClientCard key={client.id} client={client} />
               ))
             ) : (
               <div className="col-span-full text-center py-10">
