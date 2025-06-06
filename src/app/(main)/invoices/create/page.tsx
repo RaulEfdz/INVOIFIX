@@ -3,6 +3,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,7 +19,8 @@ import { ArrowLeft, Info, FileText, Mail, CreditCard, ChevronDown, Save, PencilL
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import Image from "next/image";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const invoiceFormSchema = z.object({
   myCompanyName: z.string().optional(),
@@ -28,8 +30,8 @@ const invoiceFormSchema = z.object({
   clientEmail: z.string().email("Invalid email address"),
   clientAddress: z.string().optional(),
   invoiceNumber: z.string().min(1, "Invoice number is required"),
-  issueDate: z.string().min(1, "Issue date is required"), // Should be date type in real app
-  dueDate: z.string().min(1, "Due date is required"),   // Should be date type in real app
+  issueDate: z.string().min(1, "Issue date is required"), 
+  dueDate: z.string().min(1, "Due date is required"),   
   projectName: z.string().optional(),
   paymentTerms: z.string().optional(),
   notes: z.string().optional(),
@@ -87,6 +89,31 @@ export default function CreateInvoicePage() {
   const onSubmit = (data: InvoiceFormValues) => {
     console.log("Invoice data:", data);
     // Handle actual submission here
+  };
+
+  const handleDownloadPdf = async () => {
+    const input = document.getElementById('invoice-preview-area');
+    if (input) {
+      await new Promise(resolve => setTimeout(resolve, 200)); // Ensure content is rendered
+
+      html2canvas(input, { 
+        scale: 2, // Higher scale for better quality
+        useCORS: true 
+      }).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({
+          orientation: 'p',
+          unit: 'px',
+          format: [canvas.width, canvas.height] 
+        });
+        pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+        const invoiceNumber = watchedValues.invoiceNumber || "invoice";
+        pdf.save(\`\${invoiceNumber.replace(/[^a-zA-Z0-9]/g, '_')}.pdf\`);
+      });
+    } else {
+      console.error("Invoice preview area not found for PDF generation.");
+      // Optionally, show a toast notification to the user
+    }
   };
 
   return (
@@ -285,7 +312,7 @@ export default function CreateInvoicePage() {
               <CardHeader className="flex-row items-center justify-between space-y-0 pb-3 border-b">
                 <div className="flex items-center gap-2">
                   <CardTitle className="text-lg font-medium">Preview</CardTitle>
-                  <Button variant="ghost" size="sm" className="font-light text-xs h-auto py-1 px-2"><FileText className="mr-1 h-3 w-3"/>PDF</Button>
+                  <Button variant="ghost" size="sm" className="font-light text-xs h-auto py-1 px-2" onClick={handleDownloadPdf}><FileText className="mr-1 h-3 w-3"/>PDF</Button>
                   <Button variant="ghost" size="sm" className="font-light text-xs h-auto py-1 px-2"><Mail className="mr-1 h-3 w-3"/>Email</Button>
                   <Button variant="ghost" size="sm" className="font-light text-xs h-auto py-1 px-2"><CreditCard className="mr-1 h-3 w-3"/>Online Payment</Button>
                 </div>
@@ -303,7 +330,7 @@ export default function CreateInvoicePage() {
               </CardHeader>
               <CardContent className="p-0">
                 <div className="bg-secondary/20 p-4 md:p-6 max-h-[calc(100vh-12rem)] overflow-y-auto">
-                  <Card className="p-6 md:p-8 shadow-xl bg-card mx-auto max-w-2xl">
+                  <Card id="invoice-preview-area" className="p-6 md:p-8 shadow-xl bg-card mx-auto max-w-2xl">
                     {/* Invoice Header */}
                     <div className="flex justify-between items-start mb-6">
                       <div>
@@ -311,10 +338,8 @@ export default function CreateInvoicePage() {
                         <p className="text-muted-foreground font-light">{watchedValues.invoiceNumber || "#12346"}</p>
                       </div>
                       <div className="text-right">
-                        {/* Placeholder for logo, using text instead */}
                         <Building className="h-8 w-8 text-primary inline-block mb-1"/>
                         <p className="text-2xl font-bold text-foreground">InvoiFix</p>
-                        {/* <Image src="/clorio-logo.png" alt="Clorio" width={100} height={30} /> */}
                       </div>
                     </div>
 
@@ -437,6 +462,3 @@ export default function CreateInvoicePage() {
     </>
   );
 }
-
-
-    
