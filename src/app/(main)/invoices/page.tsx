@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -6,20 +7,9 @@ import { Button } from "@/components/ui/button";
 import { InvoiceTable } from "@/components/invoices/InvoiceTable";
 import { InvoiceFilters } from "@/components/invoices/InvoiceFilters";
 import type { Invoice, InvoiceStatus } from "@/types";
+import { DUMMY_INVOICES } from "@/lib/constants"; // Import DUMMY_INVOICES
 import { PlusCircle } from "lucide-react";
 import Link from "next/link";
-
-// Dummy data for invoices
-const DUMMY_INVOICES: Invoice[] = [
-  { id: "1", invoiceNumber: "INV001", clientName: "Alice Wonderland", clientEmail: "alice@example.com", amount: 150.00, dueDate: "2024-08-15", issuedDate: "2024-07-15", status: "Paid", items: [] },
-  { id: "2", invoiceNumber: "INV002", clientName: "Bob The Builder", clientEmail: "bob@example.com", amount: 300.50, dueDate: "2024-07-20", issuedDate: "2024-07-01", status: "Overdue", items: [] },
-  { id: "3", invoiceNumber: "INV003", clientName: "Charlie Brown", clientEmail: "charlie@example.com", amount: 75.20, dueDate: "2024-09-01", issuedDate: "2024-07-25", status: "Sent", items: [] },
-  { id: "4", invoiceNumber: "INV004", clientName: "Diana Prince", clientEmail: "diana@example.com", amount: 500.00, dueDate: "2024-08-10", issuedDate: "2024-07-10", status: "Draft", items: [] },
-  { id: "5", invoiceNumber: "INV005", clientName: "Edward Scissorhands", clientEmail: "edward@example.com", amount: 220.75, dueDate: "2024-07-30", issuedDate: "2024-07-12", status: "Paid", items: [] },
-  { id: "6", invoiceNumber: "INV006", clientName: "Fiona Apple", clientEmail: "fiona@example.com", amount: 99.99, dueDate: "2024-06-30", issuedDate: "2024-06-01", status: "Overdue", items: [] },
-  { id: "7", invoiceNumber: "INV007", clientName: "George Costanza", clientEmail: "george@example.com", amount: 1250.00, dueDate: "2024-09-15", issuedDate: "2024-07-28", status: "Sent", items: [] },
-  { id: "8", invoiceNumber: "INV008", clientName: "Harry Potter", clientEmail: "harry@example.com", amount: 42.00, dueDate: "2024-08-20", issuedDate: "2024-07-20", status: "Cancelled", items: [] },
-];
 
 const ITEMS_PER_PAGE = 5;
 

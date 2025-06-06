@@ -1,5 +1,5 @@
 
-import type { InvoiceStatus, TicketStatus, UserRole, CustomerType, CustomerStatus, BusinessSector, CustomerOrigin } from "@/types";
+import type { Invoice, InvoiceStatus, TicketStatus, UserRole, CustomerType, CustomerStatus, BusinessSector, CustomerOrigin } from "@/types";
 
 export const INVOICE_STATUSES: InvoiceStatus[] = ["Draft", "Sent", "Paid", "Overdue", "Cancelled"];
 export const TICKET_STATUSES: TicketStatus[] = ["New", "In Review", "In Progress", "Resolved", "Closed"];
@@ -22,7 +22,7 @@ export const COUNTRIES: string[] = [ // A small list, can be expanded or use a l
 ];
 
 
-// Dummy data for customers - to be expanded
+// Dummy data for customers
 export const DUMMY_CUSTOMERS = [
   {
     id: "cust_001",
@@ -31,7 +31,7 @@ export const DUMMY_CUSTOMERS = [
     lastName: "Rodriguez",
     email: "elena.rodriguez@innovatech.com",
     phone: "+34 912 345 678",
-    avatarUrl: "https://placehold.co/100x100.png?text=IR",
+    avatarUrl: "https://placehold.co/100x100.png?text=ER",
     companyName: "InnovaTech Solutions S.L.",
     taxId: "B12345678",
     address: {
@@ -117,4 +117,16 @@ export const DUMMY_CUSTOMERS = [
     createdAt: "2022-11-01T15:00:00Z",
     updatedAt: "2024-07-25T09:10:00Z",
   },
+];
+
+// Dummy data for invoices
+export const DUMMY_INVOICES: Invoice[] = [
+  { id: "1", invoiceNumber: "INV001", clientName: "Alice Wonderland", clientEmail: "alice@example.com", customerId: "cust_001", amount: 150.00, dueDate: "2024-08-15", issuedDate: "2024-07-15", status: "Paid", items: [{id: "item_1", description: "Consulting Hour", quantity: 1, unitPrice: 150, total: 150}] },
+  { id: "2", invoiceNumber: "INV002", clientName: "Bob The Builder", clientEmail: "bob@example.com", customerId: "cust_002", amount: 300.50, dueDate: "2024-07-20", issuedDate: "2024-07-01", status: "Overdue", items: [{id: "item_2", description: "Website Update", quantity: 1, unitPrice: 300.50, total: 300.50}] },
+  { id: "3", invoiceNumber: "INV003", clientName: "Charlie Brown", clientEmail: "charlie@example.com", customerId: "cust_001", amount: 75.20, dueDate: "2024-09-01", issuedDate: "2024-07-25", status: "Sent", items: [{id: "item_3", description: "Logo Sketch", quantity: 1, unitPrice: 75.20, total: 75.20}] },
+  { id: "4", invoiceNumber: "INV004", clientName: "Diana Prince", clientEmail: "diana@example.com", customerId: "cust_003", amount: 500.00, dueDate: "2024-08-10", issuedDate: "2024-07-10", status: "Draft", items: [{id: "item_4", description: "Full Branding Package", quantity: 1, unitPrice: 500, total: 500}] },
+  { id: "5", invoiceNumber: "INV005", clientName: "Edward Scissorhands", clientEmail: "edward@example.com", amount: 220.75, dueDate: "2024-07-30", issuedDate: "2024-07-12", status: "Paid", items: [] },
+  { id: "6", invoiceNumber: "INV006", clientName: "Fiona Apple", clientEmail: "fiona@example.com", amount: 99.99, dueDate: "2024-06-30", issuedDate: "2024-06-01", status: "Overdue", items: [] },
+  { id: "7", invoiceNumber: "INV007", clientName: "George Costanza", clientEmail: "george@example.com", customerId: "cust_002", amount: 1250.00, dueDate: "2024-09-15", issuedDate: "2024-07-28", status: "Sent", items: [] },
+  { id: "8", invoiceNumber: "INV008", clientName: "Harry Potter", clientEmail: "harry@example.com", amount: 42.00, dueDate: "2024-08-20", issuedDate: "2024-07-20", status: "Cancelled", items: [] },
 ];

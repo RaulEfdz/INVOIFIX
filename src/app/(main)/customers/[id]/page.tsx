@@ -8,13 +8,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { Customer, Invoice, CustomerDocument, CustomerProject } from "@/types";
-import { DUMMY_CUSTOMERS, DUMMY_INVOICES } from "@/lib/constants"; // Assuming DUMMY_INVOICES is in constants
-import { ArrowLeft, Edit, FileText, Briefcase, DollarSign, Activity, FileArchive } from "lucide-react";
+import { DUMMY_CUSTOMERS, DUMMY_INVOICES } from "@/lib/constants";
+import { ArrowLeft, Edit, FileText, Briefcase, DollarSign, Activity, FileArchive, UploadCloud } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-
-// Placeholder for DUMMY_INVOICES if not already in constants.ts
-// import { DUMMY_INVOICES } from "@/app/(main)/invoices/page"; // Or wherever it's defined
 
 const DUMMY_DOCUMENTS: CustomerDocument[] = [
     // Add some dummy documents if needed
@@ -34,17 +31,11 @@ export default function CustomerDetailPage() {
   const [projects, setProjects] = React.useState<CustomerProject[]>([]);
 
   React.useEffect(() => {
-    // In a real app, fetch customer data by ID
     const foundCustomer = DUMMY_CUSTOMERS.find(c => c.id === customerId);
     if (foundCustomer) {
       setCustomer(foundCustomer);
-      // Filter dummy invoices for this customer (assuming customerId is added to Invoice type)
-      // const customerInvoices = DUMMY_INVOICES.filter(inv => inv.customerId === customerId);
-      // setInvoices(customerInvoices);
-
-      // For now, let's show all invoices as a placeholder if customerId is not on DUMMY_INVOICES
-      setInvoices(DUMMY_INVOICES.slice(0,3)); // Example: show first 3 invoices
-
+      const customerInvoices = DUMMY_INVOICES.filter(inv => inv.customerId === customerId);
+      setInvoices(customerInvoices);
       setDocuments(DUMMY_DOCUMENTS.filter(doc => doc.customerId === customerId));
       setProjects(DUMMY_PROJECTS.filter(proj => proj.customerId === customerId));
     }
@@ -77,13 +68,18 @@ export default function CustomerDetailPage() {
         years--;
         months += 12;
     }
-    return `${years} years, ${months} months`;
+    if (years === 0 && months === 0) return "New Customer";
+    return `${years > 0 ? `${years} yr${years > 1 ? 's' : ''}` : ''} ${months > 0 ? `${months} mo${months > 1 ? 's' : ''}` : ''}`.trim();
   };
+
+  const totalPaid = invoices.filter(inv => inv.status === 'Paid').reduce((sum, inv) => sum + inv.amount, 0);
+  const totalPendingFromInvoices = invoices.filter(inv => inv.status === 'Sent' || inv.status === 'Overdue').reduce((sum, inv) => sum + inv.amount, 0);
+
 
   return (
     <>
       <AppHeader pageTitle="Customer Details" />
-      <main className="flex-1 p-6 space-y-6">
+      <main className="flex-1 p-4 md:p-6 space-y-6">
         <div className="flex items-center justify-between">
             <Button variant="outline" asChild className="font-medium">
                 <Link href="/customers">
@@ -96,36 +92,34 @@ export default function CustomerDetailPage() {
             </Button>
         </div>
 
-        {/* Customer Header */}
-        <Card className="shadow-lg">
-          <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <Avatar className="h-20 w-20 border">
-              <AvatarImage src={customer.avatarUrl} alt={`${customer.firstName} ${customer.lastName}`} data-ai-hint="company logo"/>
-              <AvatarFallback className="text-2xl">{getInitials(customer.firstName, customer.lastName)}</AvatarFallback>
+        <Card className="shadow-lg overflow-hidden">
+          <CardHeader className="bg-card p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 border-b">
+            <Avatar className="h-20 w-20 border-2 border-primary/20 shrink-0">
+              <AvatarImage src={customer.avatarUrl || `https://placehold.co/100x100.png?text=${getInitials(customer.firstName, customer.lastName)}`} alt={`${customer.firstName} ${customer.lastName}`} data-ai-hint="company logo"/>
+              <AvatarFallback className="text-2xl bg-muted">{getInitials(customer.firstName, customer.lastName)}</AvatarFallback>
             </Avatar>
             <div className="flex-1">
-              <CardTitle className="text-2xl font-headline font-bold">{customer.firstName} {customer.lastName}</CardTitle>
-              {customer.companyName && <CardDescription className="text-lg font-medium text-muted-foreground">{customer.companyName}</CardDescription>}
-              <p className="text-sm text-primary font-light">{customer.email}</p>
+              <CardTitle className="text-2xl font-headline font-bold text-foreground">{customer.firstName} {customer.lastName}</CardTitle>
+              {customer.companyName && <CardDescription className="text-base font-medium text-muted-foreground">{customer.companyName}</CardDescription>}
+              <p className="text-sm text-primary font-light mt-1">{customer.email}</p>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-1 gap-2 text-sm text-right mt-4 sm:mt-0">
-                <div className="p-2 rounded-md bg-secondary/50">
-                    <p className="font-semibold text-foreground">${customer.totalBilled.toFixed(2)}</p>
-                    <p className="text-xs text-muted-foreground font-light">Total Billed</p>
+            <div className="grid grid-cols-2 sm:grid-cols-1 gap-x-4 gap-y-2 text-sm text-right mt-4 sm:mt-0 w-full sm:w-auto">
+                <div className="p-3 rounded-lg bg-secondary/70">
+                    <p className="text-xs text-muted-foreground font-light mb-0.5">Total Billed</p>
+                    <p className="font-semibold text-lg text-foreground">${customer.totalBilled.toFixed(2)}</p>
                 </div>
-                <div className="p-2 rounded-md bg-secondary/50">
-                    <p className="font-semibold text-destructive">${customer.pendingBalance.toFixed(2)}</p>
-                    <p className="text-xs text-muted-foreground font-light">Pending Balance</p>
+                <div className="p-3 rounded-lg bg-secondary/70">
+                     <p className="text-xs text-muted-foreground font-light mb-0.5">Pending Balance</p>
+                    <p className="font-semibold text-lg text-destructive">${customer.pendingBalance.toFixed(2)}</p>
                 </div>
-                 <div className="p-2 rounded-md bg-secondary/50 col-span-2 sm:col-span-1">
-                    <p className="font-semibold text-foreground">{calculateCustomerAge(customer.createdAt)}</p>
-                    <p className="text-xs text-muted-foreground font-light">Customer Since</p>
+                 <div className="p-3 rounded-lg bg-secondary/70 col-span-2 sm:col-span-1">
+                    <p className="text-xs text-muted-foreground font-light mb-0.5">Customer Since</p>
+                    <p className="font-semibold text-lg text-foreground">{calculateCustomerAge(customer.createdAt)}</p>
                 </div>
             </div>
           </CardHeader>
         </Card>
 
-        {/* Tabs for Customer Details */}
         <Tabs defaultValue="summary" className="w-full">
           <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-6">
             <TabsTrigger value="summary" className="font-medium"><Activity className="mr-2 h-4 w-4"/>Summary</TabsTrigger>
@@ -134,52 +128,55 @@ export default function CustomerDetailPage() {
             <TabsTrigger value="projects" className="font-medium"><Briefcase className="mr-2 h-4 w-4"/>Projects/Services</TabsTrigger>
           </TabsList>
 
-          {/* Summary Tab */}
           <TabsContent value="summary">
             <Card className="shadow-lg">
               <CardHeader>
                 <CardTitle className="font-headline font-semibold">Customer Summary</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                     <div>
-                        <h4 className="font-medium mb-1">Contact Information</h4>
+                        <h4 className="font-medium mb-2 text-foreground/90">Contact Information</h4>
                         <p className="font-light text-sm"><strong>Email:</strong> {customer.email}</p>
                         <p className="font-light text-sm"><strong>Phone:</strong> {customer.phone || "N/A"}</p>
-                        <p className="font-light text-sm"><strong>Website:</strong> <a href={customer.website} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">{customer.website || "N/A"}</a></p>
+                        <p className="font-light text-sm"><strong>Website:</strong> {customer.website ? <a href={customer.website} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">{customer.website}</a> : "N/A"}</p>
                     </div>
                     <div>
-                        <h4 className="font-medium mb-1">Fiscal Information</h4>
+                        <h4 className="font-medium mb-2 text-foreground/90">Fiscal Information</h4>
                         <p className="font-light text-sm"><strong>Company:</strong> {customer.companyName || "N/A"}</p>
                         <p className="font-light text-sm"><strong>Tax ID:</strong> {customer.taxId || "N/A"}</p>
-                        <p className="font-light text-sm"><strong>Address:</strong> {`${customer.address.street || ''}, ${customer.address.city || ''}, ${customer.address.state || ''} ${customer.address.postalCode || ''}, ${customer.address.country || ''}`.replace(/ , |^, |,$/g, '') || "N/A"}</p>
+                        <p className="font-light text-sm"><strong>Address:</strong> {`${customer.address.street || ''}${customer.address.street && (customer.address.city || customer.address.state || customer.address.postalCode || customer.address.country) ? ', ' : ''}${customer.address.city || ''}${customer.address.city && (customer.address.state || customer.address.postalCode || customer.address.country) ? ', ' : ''}${customer.address.state || ''}${customer.address.state && (customer.address.postalCode || customer.address.country) ? ' ' : ''}${customer.address.postalCode || ''}${customer.address.postalCode && customer.address.country ? ', ' : ''}${customer.address.country || ''}`.replace(/ , $|^, |,$/g, '') || "N/A"}</p>
                     </div>
                 </div>
                  <div>
-                    <h4 className="font-medium mb-1">AI Analysis & Opportunities</h4>
-                    <p className="font-light text-sm text-muted-foreground italic p-3 bg-secondary/30 rounded-md">
-                        {customer.aiProfileSummary || "AI analysis not yet performed."}
-                    </p>
-                    {customer.aiOpportunities && (
-                         <p className="font-light text-sm text-muted-foreground italic p-3 bg-accent/10 rounded-md mt-2 border border-accent/30">
-                            <strong>Opportunities:</strong> {customer.aiOpportunities}
+                    <h4 className="font-medium mb-2 text-foreground/90">AI Analysis & Opportunities</h4>
+                    <div className="p-4 bg-secondary/50 rounded-lg space-y-3">
+                        <p className="font-light text-sm text-muted-foreground italic">
+                            {customer.aiProfileSummary || "AI analysis not yet performed for this customer."}
                         </p>
-                    )}
+                        {customer.aiOpportunities && (
+                            <div className="p-3 bg-accent/10 rounded-md border border-accent/30">
+                                <p className="font-medium text-sm text-accent-foreground mb-1">Opportunities:</p>
+                                <p className="font-light text-sm text-muted-foreground italic">
+                                {customer.aiOpportunities}
+                                </p>
+                            </div>
+                        )}
+                    </div>
                 </div>
                  <div>
-                    <h4 className="font-medium mb-1">Recent Activity</h4>
-                    <ul className="space-y-2 text-sm font-light">
+                    <h4 className="font-medium mb-2 text-foreground/90">Recent Activity</h4>
+                    <ul className="space-y-2 text-sm font-light border p-4 rounded-lg bg-secondary/30">
                         {/* Placeholder for activity feed */}
-                        <li className="border-b pb-1">Factura #INV001 enviada - 3 days ago</li>
-                        <li className="border-b pb-1">Pago recibido por Factura #INV000 - 1 week ago</li>
-                        <li>Cliente creado - {new Date(customer.createdAt).toLocaleDateString()}</li>
+                        <li className="border-b pb-1.5 pt-0.5">Invoice #INV001 sent - 3 days ago</li>
+                        <li className="border-b pb-1.5 pt-0.5">Payment received for Invoice #INV000 - 1 week ago</li>
+                        <li>Customer account created - {new Date(customer.createdAt).toLocaleDateString()}</li>
                     </ul>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* Invoices & Payments Tab */}
           <TabsContent value="invoices">
             <Card className="shadow-lg">
               <CardHeader>
@@ -187,51 +184,65 @@ export default function CustomerDetailPage() {
                  <CardDescription className="font-light">History of invoices and payment status for {customer.firstName} {customer.lastName}.</CardDescription>
               </CardHeader>
               <CardContent>
-                {/* Placeholder for InvoicesTable specific to this customer */}
-                <p className="text-muted-foreground font-light">Invoice table for this customer will be here.</p>
                 {invoices.length > 0 ? (
-                    <ul>{invoices.map(inv => <li key={inv.id} className="font-light p-1 border-b">{inv.invoiceNumber} - ${inv.amount} - {inv.status}</li>)}</ul>
-                ) : <p className="text-muted-foreground font-light">No invoices found for this customer.</p>}
-                <div className="mt-4 pt-4 border-t">
-                    <h4 className="font-medium">Financial Summary</h4>
-                    <p className="font-light text-sm">Total Paid: $XXXX.XX</p>
-                    <p className="font-light text-sm">Total Pending: $YYYY.YY</p>
-                </div>
+                    <ul className="divide-y divide-border">
+                        {invoices.map(inv => (
+                            <li key={inv.id} className="font-light py-2.5 flex justify-between items-center">
+                                <span>{inv.invoiceNumber} - <span className="text-muted-foreground">${inv.amount.toFixed(2)}</span></span>
+                                <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${inv.status === 'Paid' ? 'bg-status-paid text-primary-foreground' : inv.status === 'Overdue' ? 'bg-status-overdue text-primary-foreground' : 'bg-status-pending text-primary-foreground'}`}>{inv.status}</span>
+                            </li>
+                        ))}
+                    </ul>
+                ) : <p className="text-muted-foreground font-light text-center py-8">No invoices found for this customer.</p>}
+                
+                {invoices.length > 0 && (
+                    <div className="mt-6 pt-4 border-t">
+                        <h4 className="font-medium mb-2">Financial Summary</h4>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="p-3 bg-secondary/50 rounded-md">
+                                <p className="text-xs text-muted-foreground">Total Paid</p>
+                                <p className="font-semibold text-lg text-status-paid">${totalPaid.toFixed(2)}</p>
+                            </div>
+                            <div className="p-3 bg-secondary/50 rounded-md">
+                                <p className="text-xs text-muted-foreground">Total Pending</p>
+                                <p className="font-semibold text-lg text-status-overdue">${totalPendingFromInvoices.toFixed(2)}</p>
+                            </div>
+                        </div>
+                    </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* Documents Tab */}
           <TabsContent value="documents">
             <Card className="shadow-lg">
-              <CardHeader className="flex flex-row items-center justify-between">
+              <CardHeader className="flex flex-row items-center justify-between pb-4">
                 <div>
                     <CardTitle className="font-headline font-semibold">Documents</CardTitle>
-                    <CardDescription className="font-light">Contracts, proposals, and other files related to {customer.firstName} {customer.lastName}.</CardDescription>
+                    <CardDescription className="font-light">Contracts, proposals, and other files for {customer.firstName}.</CardDescription>
                 </div>
-                <Button className="font-medium"><FileArchive className="mr-2 h-4 w-4"/> Upload Document</Button>
+                <Button className="font-medium">
+                    <UploadCloud className="mr-2 h-4 w-4"/> Upload Document
+                </Button>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground font-light">Document manager will be here.</p>
                 {documents.length > 0 ? (
-                    <ul>{documents.map(doc => <li key={doc.id} className="font-light p-1 border-b">{doc.fileName}</li>)}</ul>
-                ) : <p className="text-muted-foreground font-light">No documents uploaded for this customer.</p>}
+                    <ul className="divide-y divide-border">{documents.map(doc => <li key={doc.id} className="font-light py-2">{doc.fileName}</li>)}</ul>
+                ) : <p className="text-muted-foreground font-light text-center py-8">No documents uploaded for this customer.</p>}
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* Projects/Services Tab */}
           <TabsContent value="projects">
             <Card className="shadow-lg">
               <CardHeader>
                 <CardTitle className="font-headline font-semibold">Projects & Services</CardTitle>
-                <CardDescription className="font-light">List of projects or ongoing services for {customer.firstName} {customer.lastName}.</CardDescription>
+                <CardDescription className="font-light">Active and past projects for {customer.firstName}.</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground font-light">List of projects/services will be here.</p>
                 {projects.length > 0 ? (
-                    <ul>{projects.map(proj => <li key={proj.id} className="font-light p-1 border-b">{proj.projectName}</li>)}</ul>
-                ) : <p className="text-muted-foreground font-light">No projects or services associated with this customer.</p>}
+                    <ul className="divide-y divide-border">{projects.map(proj => <li key={proj.id} className="font-light py-2">{proj.projectName}</li>)}</ul>
+                ) : <p className="text-muted-foreground font-light text-center py-8">No projects or services associated with this customer.</p>}
               </CardContent>
             </Card>
           </TabsContent>
