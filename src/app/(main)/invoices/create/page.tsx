@@ -30,8 +30,8 @@ const invoiceFormSchema = z.object({
   clientEmail: z.string().email("Invalid email address"),
   clientAddress: z.string().optional(),
   invoiceNumber: z.string().min(1, "Invoice number is required"),
-  issueDate: z.string().min(1, "Issue date is required"), 
-  dueDate: z.string().min(1, "Due date is required"),   
+  issueDate: z.string().min(1, "Issue date is required"),
+  dueDate: z.string().min(1, "Due date is required"),
   projectName: z.string().optional(),
   paymentTerms: z.string().optional(),
   notes: z.string().optional(),
@@ -96,19 +96,19 @@ export default function CreateInvoicePage() {
     if (input) {
       await new Promise(resolve => setTimeout(resolve, 200)); // Ensure content is rendered
 
-      html2canvas(input, { 
+      html2canvas(input, {
         scale: 2, // Higher scale for better quality
-        useCORS: true 
+        useCORS: true
       }).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF({
           orientation: 'p',
           unit: 'px',
-          format: [canvas.width, canvas.height] 
+          format: [canvas.width, canvas.height]
         });
         pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
         const invoiceNumber = watchedValues.invoiceNumber || "invoice";
-        pdf.save(\`\${invoiceNumber.replace(/[^a-zA-Z0-9]/g, '_')}.pdf\`);
+        pdf.save(`${invoiceNumber.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`);
       });
     } else {
       console.error("Invoice preview area not found for PDF generation.");
@@ -210,7 +210,7 @@ export default function CreateInvoicePage() {
                       </div>
                     </AccordionContent>
                   </AccordionItem>
-                  
+
                   <AccordionItem value="item-items">
                     <AccordionTrigger className="font-medium">Line Items</AccordionTrigger>
                     <AccordionContent className="space-y-3 pt-3">
@@ -266,7 +266,7 @@ export default function CreateInvoicePage() {
                        <Textarea id="notes" {...form.register("notes")} rows={3} placeholder="e.g. Late fee policy, thank you note" className="font-light bg-card mt-1"/>
                     </AccordionContent>
                   </AccordionItem>
-                  
+
                   <AccordionItem value="item-6">
                     <AccordionTrigger className="font-medium">Add Signature</AccordionTrigger>
                     <AccordionContent className="pt-3 space-y-3">
@@ -358,7 +358,7 @@ export default function CreateInvoicePage() {
                         <p className="font-medium">{watchedValues.dueDate || "Feb 20, 2025"}</p>
                       </div>
                     </div>
-                    
+
                     <Separator className="mb-6"/>
 
                     {/* From and To */}
@@ -408,7 +408,7 @@ export default function CreateInvoicePage() {
                         )}
                       </TableBody>
                     </Table>
-                    
+
                     {/* Total Amount */}
                     <div className="flex justify-end mb-6">
                       <div className="w-full sm:w-1/2 md:w-1/3">
@@ -422,7 +422,7 @@ export default function CreateInvoicePage() {
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* Notes */}
                     {watchedValues.notes && (
                       <div className="mb-6 p-3 bg-secondary/30 rounded-md">
@@ -438,7 +438,7 @@ export default function CreateInvoicePage() {
                         <p className="text-xs text-muted-foreground font-light whitespace-pre-line">{watchedValues.paymentTerms}</p>
                       </div>
                     )}
-                   
+
                     {/* Signature */}
                     <div className="flex flex-col sm:flex-row justify-between items-end mt-10 pt-6 border-t">
                       <div>
