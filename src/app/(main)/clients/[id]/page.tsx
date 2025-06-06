@@ -176,17 +176,17 @@ export default function ClientDetailPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                         <div className="space-y-3">
                             <h4 className="font-semibold text-md text-foreground border-b pb-2 mb-3">Contact Information</h4>
-                            <p className="font-light text-sm flex items-start gap-2"><LinkIcon className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Email:</strong> {client.email}</div></p>
-                            <p className="font-light text-sm flex items-start gap-2"><Phone className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Phone:</strong> {client.phone || "N/A"}</div></p>
-                            {client.website && <p className="font-light text-sm flex items-start gap-2"><Globe className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Website:</strong> <a href={client.website} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">{client.website}</a></div></p>}
-                            <p className="font-light text-sm flex items-start gap-2"><MapPin className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Address:</strong> {fullAddress}</div></p>
+                            <div className="font-light text-sm flex items-start gap-2"><LinkIcon className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Email:</strong> {client.email}</div></div>
+                            <div className="font-light text-sm flex items-start gap-2"><Phone className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Phone:</strong> {client.phone || "N/A"}</div></div>
+                            {client.website && <div className="font-light text-sm flex items-start gap-2"><Globe className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Website:</strong> <a href={client.website} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">{client.website}</a></div></div>}
+                            <div className="font-light text-sm flex items-start gap-2"><MapPin className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Address:</strong> {fullAddress}</div></div>
                         </div>
                         <div className="space-y-3">
                             <h4 className="font-semibold text-md text-foreground border-b pb-2 mb-3">Fiscal Information</h4>
-                            {client.companyName && <p className="font-light text-sm flex items-start gap-2"><Building className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Company:</strong> {client.companyName}</div></p>}
-                            <p className="font-light text-sm flex items-start gap-2"><Info className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Tax ID:</strong> {client.taxId || "N/A"}</div></p>
-                            <p className="font-light text-sm flex items-start gap-2"><Briefcase className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Type:</strong> {client.clientType} - {client.commercialInfo?.businessType || "N/A"}</div></p>
-                            <p className="font-light text-sm flex items-start gap-2"><Info className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Origin:</strong> {client.commercialInfo?.origin || "N/A"}</div></p>
+                            {client.companyName && <div className="font-light text-sm flex items-start gap-2"><Building className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Company:</strong> {client.companyName}</div></div>}
+                            <div className="font-light text-sm flex items-start gap-2"><Info className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Tax ID:</strong> {client.taxId || "N/A"}</div></div>
+                            <div className="font-light text-sm flex items-start gap-2"><Briefcase className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Type:</strong> {client.clientType} - {client.commercialInfo?.businessType || "N/A"}</div></div>
+                            <div className="font-light text-sm flex items-start gap-2"><Info className="h-4 w-4 text-muted-foreground mt-0.5"/> <div><strong>Origin:</strong> {client.commercialInfo?.origin || "N/A"}</div></div>
                         </div>
                     </div>
                     
