@@ -65,7 +65,6 @@ export default function CustomersPage() {
             </div>
           </div>
           <Button asChild className="font-medium w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90">
-             {/* TODO: Link to modal or create page */}
             <Link href="/customers/create"> 
               <PlusCircle className="mr-2 h-5 w-5" /> New Client
             </Link>
@@ -156,3 +155,5 @@ export default function CustomersPage() {
     </>
   );
 }
+
+    

@@ -17,8 +17,31 @@ export const CUSTOMER_TYPES: CustomerType[] = ["Empresa", "Particular", "Freelan
 export const CUSTOMER_STATUSES: CustomerStatus[] = ["Activo", "Inactivo", "Con Deuda"];
 export const CUSTOMER_ORIGINS: CustomerOrigin[] = ["Referido", "Google", "Redes Sociales", "Publicidad Online", "Evento", "Otro"];
 export const BUSINESS_SECTORS: BusinessSector[] = ["Tecnología", "Diseño", "Retail", "Salud", "Consultoría", "Educación", "Finanzas", "Manufactura", "Otro"];
-export const COUNTRIES: string[] = [ // A small list, can be expanded or use a library
-  "Spain", "Mexico", "Argentina", "Colombia", "Chile", "Peru", "United States", "Canada", "Other"
+export const COUNTRIES: string[] = [ 
+  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
+  "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi",
+  "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czechia (Czech Republic)",
+  "Denmark", "Djibouti", "Dominica", "Dominican Republic",
+  "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini (fmr. Swaziland)", "Ethiopia",
+  "Fiji", "Finland", "France",
+  "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana",
+  "Haiti", "Holy See", "Honduras", "Hungary",
+  "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Ivory Coast",
+  "Jamaica", "Japan", "Jordan",
+  "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan",
+  "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg",
+  "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar (formerly Burma)",
+  "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia (formerly Macedonia)", "Norway",
+  "Oman",
+  "Pakistan", "Palau", "Palestine State", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal",
+  "Qatar",
+  "Romania", "Russia", "Rwanda",
+  "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria",
+  "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu",
+  "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan",
+  "Vanuatu", "Venezuela", "Vietnam",
+  "Yemen",
+  "Zambia", "Zimbabwe", "Other"
 ];
 
 
@@ -130,3 +153,6 @@ export const DUMMY_INVOICES: Invoice[] = [
   { id: "7", invoiceNumber: "INV007", clientName: "George Costanza", clientEmail: "george@example.com", customerId: "cust_002", amount: 1250.00, dueDate: "2024-09-15", issuedDate: "2024-07-28", status: "Sent", items: [] },
   { id: "8", invoiceNumber: "INV008", clientName: "Harry Potter", clientEmail: "harry@example.com", amount: 42.00, dueDate: "2024-08-20", issuedDate: "2024-07-20", status: "Cancelled", items: [] },
 ];
+
+
+    
