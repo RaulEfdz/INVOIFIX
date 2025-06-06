@@ -100,8 +100,10 @@ export default function CreateClientPage() {
                     Fill in the details below to add a new client to your database.
                   </CardDescription>
                   <Button variant="link" size="sm" className="text-primary font-medium text-xs px-0 hover:text-primary/80">
-                    <Wand2 className="h-3.5 w-3.5 mr-1"/> {/* Adjusted icon margin */}
-                    Get help using AI to auto-fill client data
+                    <span className="inline-flex items-center gap-1">
+                      <Wand2 className="h-3.5 w-3.5"/>
+                      Get help using AI to auto-fill client data
+                    </span>
                   </Button>
                 </div>
               </CardHeader>
@@ -304,5 +306,3 @@ export default function CreateClientPage() {
     </div>
   );
 }
-
-    
