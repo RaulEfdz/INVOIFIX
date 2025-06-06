@@ -8,6 +8,13 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
@@ -65,6 +72,14 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
+         // Custom status colors accessible in Tailwind
+        'status-paid': 'hsl(var(--status-paid))',
+        'status-pending': 'hsl(var(--status-pending))',
+        'status-overdue': 'hsl(var(--status-overdue))',
+        'status-draft': 'hsl(var(--status-draft))',
+        'status-sent': 'hsl(var(--status-sent))',
+        'status-cancelled': 'hsl(var(--status-cancelled))', // if needed as a direct color
+        'warning-yellow': 'hsl(var(--warning-yellow))',
       },
       borderRadius: {
         lg: 'var(--radius)',
