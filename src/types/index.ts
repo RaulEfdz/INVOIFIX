@@ -3,31 +3,31 @@ export type InvoiceStatus = "Draft" | "Sent" | "Paid" | "Overdue" | "Cancelled";
 export type TicketStatus = "New" | "In Review" | "In Progress" | "Resolved" | "Closed";
 export type UserRole = "Administrator" | "Billing" | "Technician" | "Client";
 
-export type CustomerType = "Empresa" | "Particular" | "Freelancer";
-export type CustomerStatus = "Activo" | "Inactivo" | "Con Deuda";
-export type CustomerOrigin = "Referido" | "Google" | "Redes Sociales" | "Publicidad Online" | "Evento" | "Otro";
+export type ClientType = "Empresa" | "Particular" | "Freelancer";
+export type ClientStatus = "Activo" | "Inactivo" | "Con Deuda";
+export type ClientOrigin = "Referido" | "Google" | "Redes Sociales" | "Publicidad Online" | "Evento" | "Otro";
 export type BusinessSector = "Tecnología" | "Diseño" | "Retail" | "Salud" | "Consultoría" | "Educación" | "Finanzas" | "Manufactura" | "Otro";
 
 
 export interface Invoice {
   id: string;
   invoiceNumber: string;
-  clientName: string; // This might become clientID linking to Customer
-  clientEmail: string; // This might become redundant if linked to Customer
-  customerId?: string; // Optional: Link to a customer
+  clientName: string; 
+  clientEmail: string; 
+  clientId?: string; 
   amount: number;
-  dueDate: string; // ISO string format e.g. "2024-07-28"
-  issuedDate: string; // ISO string format
+  dueDate: string; 
+  issuedDate: string; 
   status: InvoiceStatus;
   items: InvoiceItem[];
 }
 
 export interface InvoiceItem {
-  id: string; // Could be a unique ID for the line item if needed for DB
+  id: string; 
   description: string;
   quantity: number;
   unitPrice: number;
-  total: number; // quantity * unitPrice
+  total: number; 
 }
 
 export interface Ticket {
@@ -37,12 +37,12 @@ export interface Ticket {
   description: string;
   status: TicketStatus;
   priority: "Low" | "Medium" | "High";
-  assignedTo?: string; // User ID
-  submittedBy: string; // User ID or name
-  role: UserRole; // Role of submitter for context
-  createdAt: string; // ISO string format
-  updatedAt: string; // ISO string format
-  customerId?: string; // Optional: Link to a customer
+  assignedTo?: string; 
+  submittedBy: string; 
+  role: UserRole; 
+  createdAt: string; 
+  updatedAt: string; 
+  clientId?: string; 
 }
 
 export interface User {
@@ -53,57 +53,54 @@ export interface User {
   avatarUrl?: string;
 }
 
-export interface Customer {
+export interface Client {
   id: string;
-  customerType: CustomerType;
+  clientType: ClientType;
   firstName: string;
   lastName: string;
   email: string;
   phone?: string;
-  avatarUrl?: string; // URL to avatar/logo
+  avatarUrl?: string; 
   companyName?: string;
-  taxId?: string; // CIF, RUC, ABN, etc.
+  taxId?: string; 
   address: {
     street?: string;
     city?: string;
-    state?: string; // State/Province
+    state?: string; 
     postalCode?: string;
-    country?: string; // Could be a selector
+    country?: string; 
   };
   website?: string;
-  commercialInfo: {
+  commercialInfo?: { // Made optional to align with DUMMY_CLIENTS
     businessType?: BusinessSector;
-    origin?: CustomerOrigin;
+    origin?: ClientOrigin;
     internalNotes?: string;
   };
-  status: CustomerStatus;
-  // Financial summaries - these would likely be calculated
+  status: ClientStatus;
   totalBilled: number;
   pendingBalance: number;
-  // AI Generated fields
   aiProfileSummary?: string;
   aiOpportunities?: string;
-  // Timestamps
-  createdAt: string; // ISO string
-  updatedAt: string; // ISO string
+  createdAt: string; 
+  updatedAt: string; 
 }
 
-export interface CustomerDocument {
+export interface ClientDocument {
   id: string;
-  customerId: string;
+  clientId: string;
   fileName: string;
-  fileType: string; // e.g., 'pdf', 'docx', 'png'
-  fileUrl: string; // URL to the document
-  uploadedAt: string; // ISO string
-  size: number; // in bytes
+  fileType: string; 
+  fileUrl: string; 
+  uploadedAt: string; 
+  size: number; 
 }
 
-export interface CustomerProject {
+export interface ClientProject {
   id: string;
-  customerId: string;
+  clientId: string;
   projectName: string;
   description?: string;
-  startDate?: string; // ISO string
-  endDate?: string; // ISO string
+  startDate?: string; 
+  endDate?: string; 
   status: "Active" | "Completed" | "On Hold" | "Cancelled";
 }

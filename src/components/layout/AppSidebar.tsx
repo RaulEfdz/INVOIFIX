@@ -17,14 +17,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Building, LayoutDashboard, FileText, ClipboardList, Settings, LogOut, Users } from "lucide-react"; // Added Users icon
+import { Building, LayoutDashboard, FileText, ClipboardList, Settings, LogOut, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/invoices", label: "Invoices", icon: FileText },
   { href: "/tickets", label: "Tickets", icon: ClipboardList },
-  { href: "/customers", label: "Customers", icon: Users }, // Added Customers nav item
+  { href: "/clients", label: "Clients", icon: Users }, 
   { href: "/settings", label: "Settings", icon: Settings },
 ];
 

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { InvoiceTable } from "@/components/invoices/InvoiceTable";
 import { InvoiceFilters } from "@/components/invoices/InvoiceFilters";
 import type { Invoice, InvoiceStatus } from "@/types";
-import { DUMMY_INVOICES } from "@/lib/constants"; // Import DUMMY_INVOICES
+import { DUMMY_INVOICES } from "@/lib/constants"; 
 import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 
@@ -22,8 +22,8 @@ export default function InvoicesPage() {
     return DUMMY_INVOICES.filter(invoice => {
       const matchesSearch = searchTerm.toLowerCase() === "" ||
         invoice.invoiceNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        invoice.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        invoice.clientEmail.toLowerCase().includes(searchTerm.toLowerCase());
+        invoice.clientName.toLowerCase().includes(searchTerm.toLowerCase()) || // clientName is fine
+        invoice.clientEmail.toLowerCase().includes(searchTerm.toLowerCase()); // clientEmail is fine
       const matchesStatus = statusFilter === "all" || invoice.status === statusFilter;
       return matchesSearch && matchesStatus;
     });
@@ -40,7 +40,7 @@ export default function InvoicesPage() {
   };
   
   React.useEffect(() => {
-    setCurrentPage(1); // Reset to first page on filter change
+    setCurrentPage(1); 
   }, [searchTerm, statusFilter]);
 
 

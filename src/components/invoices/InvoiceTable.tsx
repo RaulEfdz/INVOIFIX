@@ -1,7 +1,8 @@
+
 "use client";
 
 import * as React from "react";
-import type { Invoice } from "@/types";
+import type { Invoice } from "@/types"; // Invoice type already uses clientId if updated in types/index.ts
 import {
   Table,
   TableBody,
@@ -20,7 +21,6 @@ import {
 import { InvoiceStatusBadge } from "./InvoiceStatusBadge";
 import { MoreHorizontal, Edit, Trash2, Send, Eye } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Badge } from "@/components/ui/badge";
 
 interface InvoiceTableProps {
   invoices: Invoice[];
@@ -69,7 +69,7 @@ export function InvoiceTable({ invoices, onPageChange, currentPage, totalPages }
               />
             </TableHead>
             <TableHead>Invoice ID</TableHead>
-            <TableHead>Client</TableHead>
+            <TableHead>Client</TableHead> {/* "Client" as a column header is fine */}
             <TableHead className="text-right">Amount</TableHead>
             <TableHead>Issued Date</TableHead>
             <TableHead>Due Date</TableHead>

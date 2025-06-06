@@ -6,21 +6,21 @@ import { AppHeader } from "@/components/layout/AppHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ClientCard } from "@/components/clients/ClientCard"; // Changed from CustomerCard
-import type { Client } from "@/types"; // Changed from Customer
-import { DUMMY_CLIENTS } from "@/lib/constants"; // Changed from DUMMY_CUSTOMERS
+import { ClientCard } from "@/components/clients/ClientCard"; // Updated import path
+import type { Client } from "@/types"; // Updated type import
+import { DUMMY_CLIENTS } from "@/lib/constants"; // Updated constant import
 import { PlusCircle, Search, LayoutGrid, List } from "lucide-react";
 import Link from "next/link";
 
 const ITEMS_PER_PAGE = 12;
 
-export default function CustomersPage() { // Function name remains as per file, but logic changes to "Client"
+export default function ClientsPage() {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [currentPage, setCurrentPage] = React.useState(1);
   const [viewMode, setViewMode] = React.useState<"grid" | "list">("grid");
 
-  const filteredClients = React.useMemo(() => { // Renamed from filteredCustomers
-    return DUMMY_CLIENTS.filter(client => { // Changed from DUMMY_CUSTOMERS and customer to client
+  const filteredClients = React.useMemo(() => {
+    return DUMMY_CLIENTS.filter(client => { // Renamed variable
       const name = `${client.firstName} ${client.lastName}`;
       const matchesSearch = searchTerm.toLowerCase() === "" ||
         name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -32,7 +32,7 @@ export default function CustomersPage() { // Function name remains as per file, 
   }, [searchTerm]);
 
   const totalPages = Math.ceil(filteredClients.length / ITEMS_PER_PAGE);
-  const paginatedClients = filteredClients.slice( // Renamed from paginatedCustomers
+  const paginatedClients = filteredClients.slice( // Renamed variable
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
@@ -47,22 +47,22 @@ export default function CustomersPage() { // Function name remains as per file, 
 
   return (
     <>
-      <AppHeader pageTitle="Clients (Legacy Route)" /> {/* Changed pageTitle to indicate it's an old route */}
+      <AppHeader pageTitle="Clients" /> 
       <main className="flex-1 p-6 space-y-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold text-foreground">Clients</h1>
             <div className="mt-2 flex items-center space-x-1">
               <Button variant="link" className="p-1 h-auto text-foreground font-semibold text-sm hover:no-underline focus:no-underline active:no-underline">
-                All Clients <Badge variant="outline" className="ml-2 bg-muted text-muted-foreground">{DUMMY_CLIENTS.length}</Badge> {/* Changed from DUMMY_CUSTOMERS */}
+                All Clients <Badge variant="outline" className="ml-2 bg-muted text-muted-foreground">{DUMMY_CLIENTS.length}</Badge>
               </Button>
               <Button variant="link" className="p-1 h-auto text-muted-foreground font-normal text-sm hover:no-underline focus:no-underline active:no-underline">
-                New <Badge variant="outline" className="ml-2 bg-muted text-muted-foreground">5</Badge> {/* Placeholder count */}
+                New <Badge variant="outline" className="ml-2 bg-muted text-muted-foreground">5</Badge> 
               </Button>
             </div>
           </div>
           <Button asChild className="font-medium w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90">
-            <Link href="/clients/create"> {/* Changed from /customers/create */}
+            <Link href="/clients/create"> 
               <PlusCircle className="mr-2 h-5 w-5" /> New Client
             </Link>
           </Button>
@@ -94,7 +94,7 @@ export default function CustomersPage() { // Function name remains as per file, 
               size="icon" 
               className={`h-8 w-8 ${viewMode === 'list' ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground'}`}
               onClick={() => setViewMode('list')}
-              disabled // List view not implemented yet
+              disabled 
             >
               <List className="h-4 w-4" />
               <span className="sr-only">List View</span>
@@ -104,9 +104,9 @@ export default function CustomersPage() { // Function name remains as per file, 
 
         {viewMode === 'grid' ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {paginatedClients.length > 0 ? ( // Renamed
-              paginatedClients.map(client => ( // Renamed
-                <ClientCard key={client.id} client={client} /> // Changed to ClientCard and client prop
+            {paginatedClients.length > 0 ? ( // Renamed variable
+              paginatedClients.map(client => ( // Renamed variable
+                <ClientCard key={client.id} client={client} /> // Updated component and prop
               ))
             ) : (
               <div className="col-span-full text-center py-10">
@@ -115,7 +115,6 @@ export default function CustomersPage() { // Function name remains as per file, 
             )}
           </div>
         ) : (
-          // Placeholder for List View
           <div className="p-4 border rounded-lg bg-card shadow-sm text-center text-muted-foreground font-light">
             List view will be implemented here.
           </div>
@@ -152,6 +151,3 @@ export default function CustomersPage() { // Function name remains as per file, 
     </>
   );
 }
-    
-
-    

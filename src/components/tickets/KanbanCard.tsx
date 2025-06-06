@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { Ticket } from "@/types";
@@ -23,6 +24,11 @@ export function KanbanCard({ ticket }: KanbanCardProps) {
     });
   };
 
+  // In a real app, you might fetch client details if only clientId is available
+  // For now, if ticket.clientId exists, we could show it or fetch related client data.
+  // const clientInfo = ticket.clientId ? `Client ID: ${ticket.clientId}` : "";
+
+
   return (
     <Card className="mb-4 shadow-md hover:shadow-lg transition-shadow cursor-grab active:cursor-grabbing bg-card">
       <CardHeader className="p-4">
@@ -39,6 +45,9 @@ export function KanbanCard({ ticket }: KanbanCardProps) {
         <p className="text-sm text-muted-foreground mb-3 font-light leading-relaxed line-clamp-2">
           {ticket.description}
         </p>
+        {/* Optional: Display client ID if present 
+        {ticket.clientId && <p className="text-xs text-blue-500 mb-2">For Client: {ticket.clientId}</p>}
+        */}
         <div className="flex items-center justify-between text-xs text-muted-foreground font-light">
           <div className="flex items-center gap-1">
             <Clock className="h-3 w-3" />
