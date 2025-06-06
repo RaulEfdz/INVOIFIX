@@ -1,9 +1,10 @@
+
 "use client";
 
 import type { Ticket, TicketStatus } from "@/types";
 import { KANBAN_COLUMNS } from "@/lib/constants";
 import { KanbanColumn } from "./KanbanColumn";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area"; // Removed ScrollBar as horizontal scroll is not the primary mode now
 
 interface KanbanBoardProps {
   tickets: Ticket[];
@@ -19,8 +20,8 @@ export function KanbanBoard({ tickets }: KanbanBoardProps) {
   // For now, it's a static display.
 
   return (
-    <ScrollArea className="w-full whitespace-nowrap">
-      <div className="flex gap-6 p-1 pb-4">
+    <ScrollArea className="w-full h-full"> {/* Ensure ScrollArea takes available height */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-1 pb-4"> {/* Changed to grid layout */}
         {KANBAN_COLUMNS.map((column) => (
           <KanbanColumn
             key={column.id}
@@ -30,7 +31,7 @@ export function KanbanBoard({ tickets }: KanbanBoardProps) {
           />
         ))}
       </div>
-      <ScrollBar orientation="horizontal" />
+      {/* Horizontal ScrollBar removed as it's now a grid that wraps or scrolls vertically */}
     </ScrollArea>
   );
 }
