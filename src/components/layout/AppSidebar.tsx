@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -16,13 +17,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Building, LayoutDashboard, FileText, ClipboardList, Settings, LogOut, UserCircle } from "lucide-react";
+import { Building, LayoutDashboard, FileText, ClipboardList, Settings, LogOut, Users } from "lucide-react"; // Added Users icon
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/invoices", label: "Invoices", icon: FileText },
   { href: "/tickets", label: "Tickets", icon: ClipboardList },
+  { href: "/customers", label: "Customers", icon: Users }, // Added Customers nav item
   { href: "/settings", label: "Settings", icon: Settings },
 ];
 
