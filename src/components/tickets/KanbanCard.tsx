@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { UserCircle2, Clock } from "lucide-react";
+import Link from "next/link"; // Import Link
 
 interface KanbanCardProps {
   ticket: Ticket;
@@ -24,53 +25,49 @@ export function KanbanCard({ ticket }: KanbanCardProps) {
     });
   };
 
-  // In a real app, you might fetch client details if only clientId is available
-  // For now, if ticket.clientId exists, we could show it or fetch related client data.
-  // const clientInfo = ticket.clientId ? `Client ID: ${ticket.clientId}` : "";
-
-
   return (
-    <Card className="mb-4 shadow-md hover:shadow-lg transition-shadow cursor-grab active:cursor-grabbing bg-card">
-      <CardHeader className="p-4">
-        <div className="flex justify-between items-start">
-            <CardTitle className="text-base font-medium leading-tight mb-1">{ticket.title}</CardTitle>
-            <Badge variant={ticket.priority === "High" ? "destructive" : ticket.priority === "Medium" ? "secondary" : "default"} 
-                   className={`text-xs ${ticket.priority === "Low" ? "bg-status-paid text-primary-foreground" : ""}`}>
-                {ticket.priority}
-            </Badge>
-        </div>
-        <CardDescription className="text-xs text-muted-foreground font-light">#{ticket.ticketNumber}</CardDescription>
-      </CardHeader>
-      <CardContent className="p-4 pt-0">
-        <p className="text-sm text-muted-foreground mb-3 font-light leading-relaxed line-clamp-2">
-          {ticket.description}
-        </p>
-        {/* Optional: Display client ID if present 
-        {ticket.clientId && <p className="text-xs text-blue-500 mb-2">For Client: {ticket.clientId}</p>}
-        */}
-        <div className="flex items-center justify-between text-xs text-muted-foreground font-light">
-          <div className="flex items-center gap-1">
-            <Clock className="h-3 w-3" />
-            <span>{formatDate(ticket.createdAt)}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            {ticket.assignedTo ? (
-              <>
-                <Avatar className="h-5 w-5">
-                  <AvatarImage src={`https://placehold.co/40x40.png?text=${ticket.assignedTo.substring(0,1)}`} data-ai-hint="avatar placeholder"/>
-                  <AvatarFallback>{ticket.assignedTo.substring(0,1)}</AvatarFallback>
-                </Avatar>
-                <span className="truncate max-w-[80px]">{ticket.assignedTo}</span>
-              </>
-            ) : (
-                <>
-                <UserCircle2 className="h-4 w-4" /> 
-                <span>Unassigned</span>
-                </>
-            )}
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+    <Link href={`/tickets/${ticket.id}`} passHref legacyBehavior>
+      <a className="block mb-4 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"> {/* Link wraps the card */}
+        <Card className="shadow-md hover:shadow-lg transition-shadow cursor-grab active:cursor-grabbing bg-card h-full flex flex-col">
+          <CardHeader className="p-4">
+            <div className="flex justify-between items-start">
+                <CardTitle className="text-base font-medium leading-tight mb-1">{ticket.title}</CardTitle>
+                <Badge variant={ticket.priority === "High" ? "destructive" : ticket.priority === "Medium" ? "secondary" : "default"} 
+                       className={`text-xs ${ticket.priority === "Low" ? "bg-status-paid text-primary-foreground" : ""}`}>
+                    {ticket.priority}
+                </Badge>
+            </div>
+            <CardDescription className="text-xs text-muted-foreground font-light">#{ticket.ticketNumber}</CardDescription>
+          </CardHeader>
+          <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-between">
+            <p className="text-sm text-muted-foreground mb-3 font-light leading-relaxed line-clamp-2 flex-grow">
+              {ticket.description}
+            </p>
+            <div className="flex items-center justify-between text-xs text-muted-foreground font-light mt-auto">
+              <div className="flex items-center gap-1">
+                <Clock className="h-3 w-3" />
+                <span>{formatDate(ticket.createdAt)}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                {ticket.assignedTo ? (
+                  <>
+                    <Avatar className="h-5 w-5">
+                      <AvatarImage src={`https://placehold.co/40x40.png?text=${ticket.assignedTo.substring(0,1)}`} data-ai-hint="avatar placeholder"/>
+                      <AvatarFallback>{ticket.assignedTo.substring(0,1)}</AvatarFallback>
+                    </Avatar>
+                    <span className="truncate max-w-[80px]">{ticket.assignedTo}</span>
+                  </>
+                ) : (
+                    <>
+                    <UserCircle2 className="h-4 w-4" /> 
+                    <span>Unassigned</span>
+                    </>
+                )}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </a>
+    </Link>
   );
 }
