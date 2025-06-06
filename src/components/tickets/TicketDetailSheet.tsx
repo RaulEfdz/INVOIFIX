@@ -60,13 +60,13 @@ export function TicketDetailSheet({ ticket, isOpen, onOpenChange, onTicketUpdate
 
   const handleStatusUpdate = () => {
     if (currentTicket && newStatus && newStatus !== currentTicket.status) {
-      const updatedTicket = { 
+      const updatedTicketData = { 
         ...currentTicket, 
         status: newStatus, 
         updatedAt: new Date().toISOString() 
       };
-      setCurrentTicket(updatedTicket);
-      onTicketUpdate(updatedTicket);
+      setCurrentTicket(updatedTicketData);
+      onTicketUpdate(updatedTicketData);
       toast({
         title: "Status Updated",
         description: `Ticket #${currentTicket.ticketNumber} status changed to ${newStatus}.`,
@@ -115,9 +115,9 @@ export function TicketDetailSheet({ ticket, isOpen, onOpenChange, onTicketUpdate
       completed: false,
     };
     const updatedChecklist = [...(currentTicket.checklist || []), newItem];
-    const updatedTicket = { ...currentTicket, checklist: updatedChecklist };
-    setCurrentTicket(updatedTicket);
-    onTicketUpdate(updatedTicket);
+    const updatedTicketData = { ...currentTicket, checklist: updatedChecklist };
+    setCurrentTicket(updatedTicketData);
+    onTicketUpdate(updatedTicketData);
     setNewChecklistItem("");
   };
 
@@ -125,22 +125,22 @@ export function TicketDetailSheet({ ticket, isOpen, onOpenChange, onTicketUpdate
     const updatedChecklist = (currentTicket.checklist || []).map(item =>
       item.id === itemId ? { ...item, completed: !item.completed } : item
     );
-    const updatedTicket = { ...currentTicket, checklist: updatedChecklist };
-    setCurrentTicket(updatedTicket);
-    onTicketUpdate(updatedTicket);
+    const updatedTicketData = { ...currentTicket, checklist: updatedChecklist };
+    setCurrentTicket(updatedTicketData);
+    onTicketUpdate(updatedTicketData);
   };
   
   const handleRemoveChecklistItem = (itemId: string) => {
     const updatedChecklist = (currentTicket.checklist || []).filter(item => item.id !== itemId);
-    const updatedTicket = { ...currentTicket, checklist: updatedChecklist };
-    setCurrentTicket(updatedTicket);
-    onTicketUpdate(updatedTicket);
+    const updatedTicketData = { ...currentTicket, checklist: updatedChecklist };
+    setCurrentTicket(updatedTicketData);
+    onTicketUpdate(updatedTicketData);
   };
 
 
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
-      <SheetContent className="sm:max-w-2xl w-full p-0 flex flex-col">
+      <SheetContent className="sm:max-w-3xl w-full p-0 flex flex-col">
         <SheetHeader className="p-6 border-b">
           <div className="flex justify-between items-center">
             <SheetTitle className="text-2xl font-bold text-foreground">Ticket #{currentTicket.ticketNumber}</SheetTitle>
@@ -283,10 +283,7 @@ export function TicketDetailSheet({ ticket, isOpen, onOpenChange, onTicketUpdate
                       <Badge 
                         className={cn(
                             "text-base px-6 py-2 capitalize font-semibold border",
-                            getStatusColorClass(currentTicket.status), // Applies bg and border from KANBAN_COLUMNS
-                            // Attempt to derive text color. This is tricky without knowing exact HSL values.
-                            // Better approach would be to define text colors directly in KANBAN_COLUMNS or theme.
-                            // For now, this is a simplified attempt.
+                            getStatusColorClass(currentTicket.status), 
                             (getStatusColorClass(currentTicket.status).includes('dark:bg-sky-800') || getStatusColorClass(currentTicket.status).includes('dark:bg-amber-800') || getStatusColorClass(currentTicket.status).includes('dark:bg-indigo-800')) ? 'text-white' : 
                             (getStatusColorClass(currentTicket.status).includes('bg-sky-100') || getStatusColorClass(currentTicket.status).includes('bg-amber-100') || getStatusColorClass(currentTicket.status).includes('bg-indigo-100')) ? 'text-sky-800 dark:text-sky-100' :
                             (getStatusColorClass(currentTicket.status).includes('bg-emerald-100')) ? 'text-emerald-800 dark:text-emerald-100' :
