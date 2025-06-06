@@ -46,7 +46,7 @@ const defaultValues: Partial<AddClientFormValues> = {
   firstName: "",
   lastName: "",
   email: "",
-  country: "United States", // Default country
+  country: "United States", 
 };
 
 export default function CreateClientPage() {
@@ -57,13 +57,11 @@ export default function CreateClientPage() {
   const form = useForm<AddClientFormValues>({
     resolver: zodResolver(addClientFormSchema),
     defaultValues,
-    mode: "onChange", // Validate on change for better UX
+    mode: "onChange", 
   });
 
   const onSubmit = (data: AddClientFormValues) => {
     console.log("New client data:", data);
-    // In a real app, you'd save this data.
-    // For now, DUMMY_CLIENTS is not mutated here, this page only handles form submission.
     toast({
       title: "Client Created",
       description: `${data.firstName} ${data.lastName} has been successfully added.`,
@@ -78,42 +76,39 @@ export default function CreateClientPage() {
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-center bg-muted/40 p-4 py-8 md:p-8">
-      <div className="w-full max-w-4xl"> {/* Increased max-width for better layout */}
+      <div className="w-full max-w-2xl"> {/* Adjusted max-width to better match image */}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <Card className="shadow-xl rounded-xl overflow-hidden">
               <CardHeader className="bg-card p-6 border-b">
-                <div className="flex items-center justify-between mb-4">
-                  <Button variant="outline" size="sm" asChild className="font-medium text-xs">
+                <div className="flex items-center justify-between mb-6">
+                  <Button variant="outline" size="sm" asChild className="font-medium text-xs h-8 px-3"> {/* Smaller button */}
                     <Link href="/clients"><ArrowLeft className="mr-1.5 h-3.5 w-3.5" /> Back to Clients</Link>
                   </Button>
-                  <Button variant="ghost" size="icon" className="text-muted-foreground" asChild>
+                  <Button variant="ghost" size="icon" className="text-muted-foreground h-8 w-8" asChild>
                     <Link href="/clients"><XIcon className="h-5 w-5" /></Link>
                   </Button>
                 </div>
 
-                <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-6">
-                  <Avatar className="h-32 w-32 md:h-28 md:w-28 border-4 border-primary/10 shadow-lg shrink-0">
-                    <AvatarImage src={form.watch("avatarUrl") || `https://placehold.co/150x150.png?text=${avatarInitials}`} data-ai-hint="user avatar gradient" />
-                    <AvatarFallback className="text-5xl md:text-4xl bg-muted">{avatarInitials}</AvatarFallback>
+                <div className="flex flex-col items-center text-center gap-2"> {/* Reduced gap */}
+                  <Avatar className="h-24 w-24 border-2 border-primary/10 shadow-md"> {/* Adjusted size and border */}
+                    <AvatarImage src={form.watch("avatarUrl") || `https://placehold.co/120x120.png?text=${avatarInitials}`} data-ai-hint="user avatar gradient" />
+                    <AvatarFallback className="text-3xl bg-muted">{avatarInitials}</AvatarFallback>
                   </Avatar>
-                  <div className="flex-grow">
-                    <CardTitle className="text-3xl font-bold text-foreground mb-1.5">{clientDisplayName}</CardTitle>
-                    <CardDescription className="font-light text-muted-foreground max-w-md mx-auto md:mx-0">
-                      Fill in the details below to add a new client to your database.
-                    </CardDescription>
-                     <Button variant="link" size="sm" className="text-primary font-medium text-xs mt-2 px-0 hover:text-primary/80">
-                      <Wand2 className="h-3.5 w-3.5 mr-1.5"/>
-                      Get help using AI to auto-fill client data
-                    </Button>
-                  </div>
+                  <CardTitle className="text-2xl font-bold text-foreground mt-2">{clientDisplayName}</CardTitle>
+                  <CardDescription className="font-light text-muted-foreground text-sm max-w-sm">
+                    Fill in the details below to add a new client to your database.
+                  </CardDescription>
+                  <Button variant="link" size="sm" className="text-primary font-medium text-xs px-0 hover:text-primary/80">
+                    <Wand2 className="h-3.5 w-3.5 mr-1"/> {/* Adjusted icon margin */}
+                    Get help using AI to auto-fill client data
+                  </Button>
                 </div>
               </CardHeader>
 
-              <CardContent className="p-6 md:p-8 space-y-8">
-                {/* Section 1: Contact Information */}
+              <CardContent className="p-6 md:p-8 space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-4 border-b pb-2">Contact Information</h3>
+                  <h3 className="text-base font-semibold text-foreground mb-4">Contact Information</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                     <FormField
                       control={form.control}
@@ -141,7 +136,7 @@ export default function CreateClientPage() {
                         </FormItem>
                       )}
                     />
-                    <FormField
+                     <FormField
                       control={form.control}
                       name="email"
                       render={({ field }) => (
@@ -205,17 +200,16 @@ export default function CreateClientPage() {
                   </div>
                 </div>
                 
-                <Separator className="my-8" />
+                <Separator className="my-6" />
 
-                {/* Section 2: Business Details (Collapsible) */}
                 <div>
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-semibold text-foreground">Business Details</h3>
+                    <h3 className="text-base font-semibold text-foreground">Business Details</h3>
                     <Button 
                       type="button" 
                       variant="outline"
                       size="sm"
-                      className="text-xs font-medium"
+                      className="text-xs font-medium h-8 px-3" /* Smaller button */
                       onClick={() => setShowBusinessDetails(!showBusinessDetails)}
                     >
                       {showBusinessDetails ? "Hide" : "Show"} Business Details <PlusCircle className={`ml-1.5 h-4 w-4 transition-transform ${showBusinessDetails ? 'rotate-45' : ''}`}/>
@@ -223,7 +217,7 @@ export default function CreateClientPage() {
                   </div>
 
                   {showBusinessDetails && (
-                    <div className="space-y-6 pt-4 animate-accordion-down">
+                    <div className="space-y-6 pt-4 animate-accordion-down"> {/* Keep accordion animation if desired */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                         <FormField
                           control={form.control}
@@ -299,9 +293,9 @@ export default function CreateClientPage() {
                   )}
                 </div>
               </CardContent>
-              <CardFooter className="bg-muted/50 p-6 flex flex-col sm:flex-row justify-end gap-3 border-t">
-                <Button variant="outline" onClick={() => router.push("/clients")} className="font-medium w-full sm:w-auto">Cancel</Button>
-                <Button type="submit" className="font-medium bg-primary text-primary-foreground hover:bg-primary/90 w-full sm:w-auto">Save Client</Button>
+              <CardFooter className="bg-muted/30 p-6 flex justify-end gap-3 border-t"> {/* Adjusted background */}
+                <Button variant="outline" onClick={() => router.push("/clients")} className="font-medium">Cancel</Button>
+                <Button type="submit" className="font-medium bg-primary text-primary-foreground hover:bg-primary/90">Save Client</Button>
               </CardFooter>
             </Card>
           </form>
@@ -310,3 +304,5 @@ export default function CreateClientPage() {
     </div>
   );
 }
+
+    
