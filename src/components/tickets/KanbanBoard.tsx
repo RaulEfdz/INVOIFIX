@@ -8,9 +8,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface KanbanBoardProps {
   tickets: Ticket[];
+  onTicketSelect: (ticket: Ticket) => void;
 }
 
-export function KanbanBoard({ tickets }: KanbanBoardProps) {
+export function KanbanBoard({ tickets, onTicketSelect }: KanbanBoardProps) {
   const ticketsByStatus = KANBAN_COLUMNS.reduce((acc, column) => {
     acc[column.id] = tickets.filter((ticket) => ticket.status === column.id);
     return acc;
@@ -26,10 +27,10 @@ export function KanbanBoard({ tickets }: KanbanBoardProps) {
             title={column.title}
             headerColorClass={column.headerColorClass}
             tickets={ticketsByStatus[column.id] || []}
+            onTicketSelect={onTicketSelect}
           />
         ))}
       </div>
     </ScrollArea>
   );
 }
-

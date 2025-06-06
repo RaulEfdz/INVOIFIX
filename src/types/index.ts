@@ -1,4 +1,5 @@
 
+
 export type InvoiceStatus = "Draft" | "Sent" | "Paid" | "Overdue" | "Cancelled";
 export type TicketStatus = "New" | "In Review" | "In Progress" | "Resolved" | "Closed";
 export type UserRole = "Administrator" | "Billing" | "Technician" | "Client";
@@ -8,6 +9,13 @@ export type ClientStatus = "Activo" | "Inactivo" | "Con Deuda";
 export type ClientOrigin = "Referido" | "Google" | "Redes Sociales" | "Publicidad Online" | "Evento" | "Otro";
 export type BusinessSector = "Tecnología" | "Diseño" | "Retail" | "Salud" | "Consultoría" | "Educación" | "Finanzas" | "Manufactura" | "Otro";
 
+export interface InvoiceItem {
+  id: string; 
+  description: string;
+  quantity: number;
+  unitPrice: number;
+  total: number; 
+}
 
 export interface Invoice {
   id: string;
@@ -22,12 +30,10 @@ export interface Invoice {
   items: InvoiceItem[];
 }
 
-export interface InvoiceItem {
-  id: string; 
-  description: string;
-  quantity: number;
-  unitPrice: number;
-  total: number; 
+export interface ChecklistItem {
+  id: string;
+  text: string;
+  completed: boolean;
 }
 
 export interface Ticket {
@@ -43,6 +49,8 @@ export interface Ticket {
   createdAt: string; 
   updatedAt: string; 
   clientId?: string; 
+  relatedTasks?: { id: string, title: string }[]; // Example structure
+  checklist?: ChecklistItem[];
 }
 
 export interface User {
@@ -71,7 +79,7 @@ export interface Client {
     country?: string; 
   };
   website?: string;
-  commercialInfo?: { // Made optional to align with DUMMY_CLIENTS
+  commercialInfo?: {
     businessType?: BusinessSector;
     origin?: ClientOrigin;
     internalNotes?: string;

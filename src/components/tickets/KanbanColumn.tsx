@@ -11,9 +11,10 @@ interface KanbanColumnProps {
   title: string;
   headerColorClass: string;
   tickets: Ticket[];
+  onTicketSelect: (ticket: Ticket) => void;
 }
 
-export function KanbanColumn({ status, title, tickets, headerColorClass }: KanbanColumnProps) {
+export function KanbanColumn({ status, title, tickets, headerColorClass, onTicketSelect }: KanbanColumnProps) {
   return (
     <div className="flex flex-col w-full bg-secondary/50 rounded-lg shadow h-full min-h-[300px]"> 
       <div className={cn(
@@ -24,7 +25,7 @@ export function KanbanColumn({ status, title, tickets, headerColorClass }: Kanba
           {title}{" "}
           <span className={cn(
             "text-sm font-light",
-            headerColorClass.includes("dark:") ? "text-slate-300" : "text-muted-foreground" // Adjust count color for contrast
+            headerColorClass.includes("dark:") ? "text-slate-300" : "text-muted-foreground"
           )}>
             ({tickets.length})
           </span>
@@ -37,11 +38,10 @@ export function KanbanColumn({ status, title, tickets, headerColorClass }: Kanba
             </div>
         ) : (
             tickets.map((ticket) => (
-                <KanbanCard key={ticket.id} ticket={ticket} />
+                <KanbanCard key={ticket.id} ticket={ticket} onTicketSelect={onTicketSelect} />
             ))
         )}
       </ScrollArea>
     </div>
   );
 }
-

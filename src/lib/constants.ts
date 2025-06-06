@@ -1,16 +1,16 @@
 
-import type { Invoice, InvoiceStatus, TicketStatus, UserRole, ClientType, ClientStatus, BusinessSector, ClientOrigin, Client } from "@/types";
+import type { Invoice, InvoiceStatus, TicketStatus, UserRole, ClientType, ClientStatus, BusinessSector, ClientOrigin, Client, Ticket } from "@/types";
 
 export const INVOICE_STATUSES: InvoiceStatus[] = ["Draft", "Sent", "Paid", "Overdue", "Cancelled"];
 export const TICKET_STATUSES: TicketStatus[] = ["New", "In Review", "In Progress", "Resolved", "Closed"];
 export const USER_ROLES: UserRole[] = ["Administrator", "Billing", "Technician", "Client"];
 
 export const KANBAN_COLUMNS: { id: TicketStatus; title: string; headerColorClass: string }[] = [
-  { id: "New", title: "New", headerColorClass: "bg-sky-100 dark:bg-sky-700/60" },
-  { id: "In Review", title: "In Review", headerColorClass: "bg-amber-100 dark:bg-amber-700/60" },
-  { id: "In Progress", title: "In Progress", headerColorClass: "bg-indigo-100 dark:bg-indigo-700/60" },
-  { id: "Resolved", title: "Resolved", headerColorClass: "bg-emerald-100 dark:bg-emerald-700/60" },
-  { id: "Closed", title: "Closed", headerColorClass: "bg-slate-100 dark:bg-slate-600/60" },
+  { id: "New", title: "New", headerColorClass: "bg-sky-100 dark:bg-sky-800/60 border-sky-300 dark:border-sky-700" },
+  { id: "In Review", title: "In Review", headerColorClass: "bg-amber-100 dark:bg-amber-800/60 border-amber-300 dark:border-amber-700" },
+  { id: "In Progress", title: "In Progress", headerColorClass: "bg-indigo-100 dark:bg-indigo-800/60 border-indigo-300 dark:border-indigo-700" },
+  { id: "Resolved", title: "Resolved", headerColorClass: "bg-emerald-100 dark:bg-emerald-800/60 border-emerald-300 dark:border-emerald-700" },
+  { id: "Closed", title: "Closed", headerColorClass: "bg-slate-200 dark:bg-slate-700/60 border-slate-400 dark:border-slate-600" },
 ];
 
 export const CLIENT_TYPES: ClientType[] = ["Empresa", "Particular", "Freelancer"];
@@ -178,3 +178,12 @@ export const DUMMY_INVOICES: Invoice[] = [
   { id: "8", invoiceNumber: "INV008", clientName: "Harry Potter", clientEmail: "harry@example.com", clientId: "client_001", amount: 42.00, dueDate: "2024-08-20", issuedDate: "2024-07-20", status: "Cancelled", items: [] },
 ];
 
+// Dummy data for tickets
+export const DUMMY_TICKETS: Ticket[] = [
+  { id: "t1", ticketNumber: "TKT001", title: "Login button not working on Safari", description: "Users on Safari are reporting that the login button is unresponsive. Tested on Safari 15.2.", status: "New", priority: "High", submittedBy: "client1", role: "Client", createdAt: "2024-07-27T10:00:00Z", updatedAt: "2024-07-27T10:00:00Z", assignedTo: "TechGuy1", clientId: "client_001", relatedTasks: [{id:"task_01", title:"Investigate Safari JS error"}, {id:"task_02", title:"Test on older Safari versions"}], checklist: [{id: "check_01", text: "Reproduce issue", completed: false},{id: "check_02", text: "Check console logs", completed: false}]},
+  { id: "t2", ticketNumber: "TKT002", title: "Invoice PDF generation error", description: "Getting a 500 error when trying to download invoice #INV005 as PDF.", status: "In Progress", priority: "High", submittedBy: "billingTeamUser2", role: "Billing", createdAt: "2024-07-26T14:30:00Z", updatedAt: "2024-07-27T11:00:00Z", assignedTo: "DevLead", clientId: "client_002", checklist: [] },
+  { id: "t3", ticketNumber: "TKT003", title: "Feature request: Dark mode", description: "It would be great to have a dark mode option for the application interface.", status: "In Review", priority: "Medium", submittedBy: "client3", role: "Client", createdAt: "2024-07-25T09:15:00Z", updatedAt: "2024-07-26T16:00:00Z", clientId: "client_003", relatedTasks: [{id:"task_03", title:"Design dark mode palette"}], checklist: [] },
+  { id: "t4", ticketNumber: "TKT004", title: "Typo on the contact page", description: "The phone number on the contact us page has a typo. It should be 555-1234, not 555-1235.", status: "Resolved", priority: "Low", submittedBy: "techSupportUser4", role: "Technician", createdAt: "2024-07-24T11:00:00Z", updatedAt: "2024-07-25T10:00:00Z", assignedTo: "ContentEditor", checklist: [{id: "check_03", text: "Verify correct phone number", completed: true},{id: "check_04", text: "Update contact page", completed: true},{id: "check_05", text: "Deploy changes", completed: true}] },
+  { id: "t5", ticketNumber: "TKT005", title: "Unable to update profile picture", description: "When I try to upload a new profile picture, it shows an 'Upload failed' message.", status: "New", priority: "Medium", submittedBy: "client5", role: "Client", createdAt: "2024-07-28T08:00:00Z", updatedAt: "2024-07-28T08:00:00Z", clientId: "client_001", checklist: [] },
+  { id: "t6", ticketNumber: "TKT006", title: "Add recurring invoice option", description: "Need ability to set up invoices that recur monthly or annually.", status: "In Review", priority: "High", submittedBy: "billingManager", role: "Billing", createdAt: "2024-07-28T10:00:00Z", updatedAt: "2024-07-28T10:00:00Z", assignedTo: "ProductTeam", clientId: "client_004", checklist: [] },
+];
