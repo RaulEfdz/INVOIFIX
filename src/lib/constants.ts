@@ -5,12 +5,12 @@ export const INVOICE_STATUSES: InvoiceStatus[] = ["Draft", "Sent", "Paid", "Over
 export const TICKET_STATUSES: TicketStatus[] = ["New", "In Review", "In Progress", "Resolved", "Closed"];
 export const USER_ROLES: UserRole[] = ["Administrator", "Billing", "Technician", "Client"];
 
-export const KANBAN_COLUMNS: { id: TicketStatus; title: string }[] = [
-  { id: "New", title: "New" },
-  { id: "In Review", title: "In Review" },
-  { id: "In Progress", title: "In Progress" },
-  { id: "Resolved", title: "Resolved" },
-  { id: "Closed", title: "Closed" },
+export const KANBAN_COLUMNS: { id: TicketStatus; title: string; headerColorClass: string }[] = [
+  { id: "New", title: "New", headerColorClass: "bg-sky-100 dark:bg-sky-700/60" },
+  { id: "In Review", title: "In Review", headerColorClass: "bg-amber-100 dark:bg-amber-700/60" },
+  { id: "In Progress", title: "In Progress", headerColorClass: "bg-indigo-100 dark:bg-indigo-700/60" },
+  { id: "Resolved", title: "Resolved", headerColorClass: "bg-emerald-100 dark:bg-emerald-700/60" },
+  { id: "Closed", title: "Closed", headerColorClass: "bg-slate-100 dark:bg-slate-600/60" },
 ];
 
 export const CLIENT_TYPES: ClientType[] = ["Empresa", "Particular", "Freelancer"];
@@ -177,3 +177,4 @@ export const DUMMY_INVOICES: Invoice[] = [
   { id: "7", invoiceNumber: "INV007", clientName: "George Costanza", clientEmail: "george@example.com", clientId: "client_002", amount: 1250.00, dueDate: "2024-09-15", issuedDate: "2024-07-28", status: "Sent", items: [] },
   { id: "8", invoiceNumber: "INV008", clientName: "Harry Potter", clientEmail: "harry@example.com", clientId: "client_001", amount: 42.00, dueDate: "2024-08-20", issuedDate: "2024-07-20", status: "Cancelled", items: [] },
 ];
+
