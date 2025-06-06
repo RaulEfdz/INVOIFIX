@@ -82,8 +82,12 @@ export default function CreateClientPage() {
             <Card className="shadow-xl rounded-xl overflow-hidden">
               <CardHeader className="bg-card p-6 border-b">
                 <div className="flex items-center justify-between mb-6">
-                  <Button variant="outline" size="sm" asChild className="font-medium text-xs h-8 px-3"> {/* Smaller button */}
-                    <Link href="/clients"><ArrowLeft className="mr-1.5 h-3.5 w-3.5" /> Back to Clients</Link>
+                  <Button variant="outline" size="sm" asChild className="font-medium text-xs h-8 px-3">
+                    <Link href="/clients">
+                      <span className="inline-flex items-center">
+                        <ArrowLeft className="mr-1.5 h-3.5 w-3.5" /> Back to Clients
+                      </span>
+                    </Link>
                   </Button>
                   <Button variant="ghost" size="icon" className="text-muted-foreground h-8 w-8" asChild>
                     <Link href="/clients"><XIcon className="h-5 w-5" /></Link>
