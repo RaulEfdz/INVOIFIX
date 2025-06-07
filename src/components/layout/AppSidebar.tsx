@@ -28,11 +28,11 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/invoices", label: "Invoices", icon: FileText },
+  { href: "/dashboard", label: "Panel", icon: LayoutDashboard },
+  { href: "/invoices", label: "Facturas", icon: FileText },
   { href: "/tickets", label: "Tickets", icon: ClipboardList },
-  { href: "/clients", label: "Clients", icon: Users },
-  { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/clients", label: "Clientes", icon: Users },
+  { href: "/settings", label: "Configuración", icon: Settings },
 ];
 
 export function AppSidebar() {
@@ -103,16 +103,16 @@ export function AppSidebar() {
             <Avatar className="h-8 w-8">
               <AvatarImage
                 src="https://placehold.co/100x100.png"
-                alt="User Avatar"
+                alt="Avatar de usuario"
                 data-ai-hint="user avatar"
               />
               <AvatarFallback>JD</AvatarFallback>
             </Avatar>
             {open && (
               <div className="flex flex-col text-left">
-                <span className="text-sm font-medium">John Doe</span>
+                <span className="text-sm font-medium">Juan Pérez</span>
                 <span className="text-xs font-light text-muted-foreground">
-                  Admin
+                  Administrador
                 </span>
               </div>
             )}
@@ -124,8 +124,8 @@ export function AppSidebar() {
             className="w-full justify-start gap-2 font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
           >
             <LogOut className="h-5 w-5" />
-            {open && <span>Logout</span>}
-            {!open && <span className="sr-only">Logout</span>}
+            {open && <span>Cerrar sesión</span>}
+            {!open && <span className="sr-only">Cerrar sesión</span>}
           </Button>
         </Link>
       </SidebarFooter>

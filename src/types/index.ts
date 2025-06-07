@@ -1,31 +1,57 @@
-
-
 export type InvoiceStatus = "Draft" | "Sent" | "Paid" | "Overdue" | "Cancelled";
-export type TicketStatus = "New" | "In Review" | "In Progress" | "Resolved" | "Closed";
-export type UserRole = "Administrator" | "Billing" | "Technician" | "Client";
+export type TicketStatus =
+  | "New"
+  | "In Review"
+  | "In Progress"
+  | "Resolved"
+  | "Closed";
+export type UserRole =
+  | "Administrator"
+  | "Billing"
+  | "Technician"
+  | "Client"
+  | "Scrum"
+  | "Project Leader"
+  | "Programmer"
+  | "QA";
 
 export type ClientType = "Empresa" | "Particular" | "Freelancer";
 export type ClientStatus = "Activo" | "Inactivo" | "Con Deuda";
-export type ClientOrigin = "Referido" | "Google" | "Redes Sociales" | "Publicidad Online" | "Evento" | "Otro";
-export type BusinessSector = "Tecnología" | "Diseño" | "Retail" | "Salud" | "Consultoría" | "Educación" | "Finanzas" | "Manufactura" | "Otro";
+export type ClientOrigin =
+  | "Referido"
+  | "Google"
+  | "Redes Sociales"
+  | "Publicidad Online"
+  | "Evento"
+  | "Otro";
+export type BusinessSector =
+  | "Tecnología"
+  | "Diseño"
+  | "Retail"
+  | "Salud"
+  | "Consultoría"
+  | "Educación"
+  | "Finanzas"
+  | "Manufactura"
+  | "Otro";
 
 export interface InvoiceItem {
-  id: string; 
+  id: string;
   description: string;
   quantity: number;
   unitPrice: number;
-  total: number; 
+  total: number;
 }
 
 export interface Invoice {
   id: string;
   invoiceNumber: string;
-  clientName: string; 
-  clientEmail: string; 
-  clientId?: string; 
+  clientName: string;
+  clientEmail: string;
+  clientId?: string;
   amount: number;
-  dueDate: string; 
-  issuedDate: string; 
+  dueDate: string;
+  issuedDate: string;
   status: InvoiceStatus;
   items: InvoiceItem[];
 }
@@ -43,18 +69,18 @@ export interface Ticket {
   description: string;
   status: TicketStatus;
   priority: "Low" | "Medium" | "High";
-  assignedTo?: string; 
-  submittedBy: string; 
-  role: UserRole; 
-  createdAt: string; 
-  updatedAt: string; 
-  clientId?: string; 
-  relatedTasks?: { id: string, title: string }[]; // Example structure
+  assignedTo?: string;
+  submittedBy: string;
+  role: UserRole;
+  createdAt: string;
+  updatedAt: string;
+  clientId?: string;
+  relatedTasks?: { id: string; title: string }[]; // Example structure
   checklist?: ChecklistItem[];
 }
 
 export interface User {
-  id:string;
+  id: string;
   name: string;
   email: string;
   role: UserRole;
@@ -68,15 +94,15 @@ export interface Client {
   lastName: string;
   email: string;
   phone?: string;
-  avatarUrl?: string; 
+  avatarUrl?: string;
   companyName?: string;
-  taxId?: string; 
+  taxId?: string;
   address: {
     street?: string;
     city?: string;
-    state?: string; 
+    state?: string;
     postalCode?: string;
-    country?: string; 
+    country?: string;
   };
   website?: string;
   commercialInfo?: {
@@ -89,18 +115,18 @@ export interface Client {
   pendingBalance: number;
   aiProfileSummary?: string;
   aiOpportunities?: string;
-  createdAt: string; 
-  updatedAt: string; 
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ClientDocument {
   id: string;
   clientId: string;
   fileName: string;
-  fileType: string; 
-  fileUrl: string; 
-  uploadedAt: string; 
-  size: number; 
+  fileType: string;
+  fileUrl: string;
+  uploadedAt: string;
+  size: number;
 }
 
 export interface ClientProject {
@@ -108,7 +134,7 @@ export interface ClientProject {
   clientId: string;
   projectName: string;
   description?: string;
-  startDate?: string; 
-  endDate?: string; 
+  startDate?: string;
+  endDate?: string;
   status: "Active" | "Completed" | "On Hold" | "Cancelled";
 }

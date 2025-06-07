@@ -86,25 +86,26 @@ const invoiceFormSchema = z.object({
 type InvoiceFormValues = z.infer<typeof invoiceFormSchema>;
 
 const defaultValues: Partial<InvoiceFormValues> = {
-  myCompanyName: "Washim Chowdhury",
-  myEmail: "washim@gmail.com",
-  myAddress: "Zindabazar, Sylhet, Bangladesh\nABN 12345\n+88 01725 214 992",
+  myCompanyName: "RAUL FERNANDEZ",
+  myEmail: "633116918",
+  myAddress:
+    "Av. Justo Arosemena 41, Panamá, Provincia de Panamá\n(507) 63116918",
   clientName: "Tony Stark",
   clientEmail: "tonystark@gmail.com",
   clientAddress:
     "Mirabazar, Sylhet, Bangladesh\n(209) 234-22435\ntonystark.com",
   invoiceNumber: "#12346",
-  issueDate: "Feb 15, 2025",
-  dueDate: "Feb 20, 2025",
-  projectName: "Fillo Product Design",
+  issueDate: "15 de febrero de 2025",
+  dueDate: "20 de febrero de 2025",
+  projectName: "Diseño de Producto Fillo",
   paymentTerms:
-    "EFT Bank Transfer\nAccount Name: Washim Chowdhury\nCode: 123456\nAccount Number: 99118834344545123",
+    "Transferencia bancaria\nNombre de la cuenta: RAUL FERNANDEZ\nCódigo: 123456\nNúmero de cuenta: 99118834344545123",
   notes:
-    "There will be a late payment fee of 10% per annum calculated daily for payments made after the due date.",
-  signatureName: "Washim Chowdhury",
+    "Se aplicará un recargo por pago tardío del 10% anual calculado diariamente para pagos realizados después de la fecha de vencimiento.",
+  signatureName: "RAUL FERNANDEZ",
   items: [
-    { description: "Web & App Design", units: 1, price: 2500, gst: 0 },
-    { description: "Item Description", units: 1, price: 500, gst: 0 },
+    { description: "Diseño Web y App", units: 1, price: 2500, gst: 0 },
+    { description: "Otro servicio", units: 1, price: 500, gst: 0 },
   ],
 };
 
@@ -193,6 +194,16 @@ export default function CreateInvoicePage() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-4"
               >
+                <div>
+                  <Label htmlFor="projectName" className="font-light text-xs">
+                    Nombre del Proyecto / Servicio
+                  </Label>
+                  <Input
+                    id="projectName"
+                    {...form.register("projectName")}
+                    className="font-light bg-card mt-1"
+                  />
+                </div>
                 <Accordion
                   type="multiple"
                   defaultValue={["item-1", "item-2"]}
@@ -366,19 +377,6 @@ export default function CreateInvoicePage() {
                           )}
                         </div>
                       </div>
-                      <div>
-                        <Label
-                          htmlFor="projectName"
-                          className="font-light text-xs"
-                        >
-                          Nombre del Proyecto / Servicio
-                        </Label>
-                        <Input
-                          id="projectName"
-                          {...form.register("projectName")}
-                          className="font-light bg-card mt-1"
-                        />
-                      </div>
                     </AccordionContent>
                   </AccordionItem>
 
@@ -528,11 +526,11 @@ export default function CreateInvoicePage() {
 
                   <AccordionItem value="item-5">
                     <AccordionTrigger className="font-medium">
-                      Add Notes
+                      Añadir Notas
                     </AccordionTrigger>
                     <AccordionContent className="pt-3">
                       <Label htmlFor="notes" className="font-light text-xs">
-                        Additional Notes
+                        Notas Adicionales
                       </Label>
                       <Textarea
                         id="notes"
@@ -546,25 +544,25 @@ export default function CreateInvoicePage() {
 
                   <AccordionItem value="item-6">
                     <AccordionTrigger className="font-medium">
-                      Add Signature
+                      Añadir Firma
                     </AccordionTrigger>
                     <AccordionContent className="pt-3 space-y-3">
                       <Label
                         htmlFor="signatureName"
                         className="font-light text-xs"
                       >
-                        Signatory Name (appears below signature)
+                        Nombre del Firmante (aparece debajo de la firma)
                       </Label>
                       <Input
                         id="signatureName"
                         {...form.register("signatureName")}
-                        placeholder="Your Name"
+                        placeholder="Su Nombre"
                         className="font-light bg-card"
                       />
                       <div className="p-4 border border-dashed rounded-md text-center bg-muted/30">
                         <PencilLine className="mx-auto h-8 w-8 text-muted-foreground mb-2" />
                         <p className="text-xs text-muted-foreground font-light">
-                          Signature image/upload functionality coming soon.
+                          Funcionalidad de imagen/subida de firma próximamente.
                         </p>
                         <Image
                           src="https://placehold.co/150x50.png?text=Signature"
@@ -580,12 +578,12 @@ export default function CreateInvoicePage() {
 
                   <AccordionItem value="item-7">
                     <AccordionTrigger className="font-medium">
-                      Email Details (Optional)
+                      Detalles de Correo (Opcional)
                     </AccordionTrigger>
                     <AccordionContent className="space-y-3 pt-3">
                       <div>
                         <Label htmlFor="emailTo" className="font-light text-xs">
-                          Recipient Email
+                          Correo del Destinatario
                         </Label>
                         <Input
                           id="emailTo"
@@ -599,7 +597,7 @@ export default function CreateInvoicePage() {
                           htmlFor="emailSubject"
                           className="font-light text-xs"
                         >
-                          Subject
+                          Asunto
                         </Label>
                         <Input
                           id="emailSubject"
@@ -612,7 +610,7 @@ export default function CreateInvoicePage() {
                           htmlFor="emailBody"
                           className="font-light text-xs"
                         >
-                          Body
+                          Mensaje
                         </Label>
                         <Textarea
                           id="emailBody"
@@ -626,7 +624,7 @@ export default function CreateInvoicePage() {
                 </Accordion>
 
                 <Button type="submit" className="w-full font-medium mt-6">
-                  <Save className="mr-2 h-4 w-4" /> Save Invoice
+                  <Save className="mr-2 h-4 w-4" /> Guardar Factura
                 </Button>
               </form>
             </CardContent>
@@ -639,7 +637,9 @@ export default function CreateInvoicePage() {
             <Card className="shadow-lg">
               <CardHeader className="flex-row items-center justify-between space-y-0 pb-3 border-b">
                 <div className="flex items-center gap-2">
-                  <CardTitle className="text-lg font-medium">Preview</CardTitle>
+                  <CardTitle className="text-lg font-medium">
+                    Vista Previa
+                  </CardTitle>
                   <Button
                     variant="ghost"
                     size="sm"
@@ -655,7 +655,7 @@ export default function CreateInvoicePage() {
                     className="font-light text-xs h-auto py-1 px-2"
                   >
                     <Mail className="mr-1 h-3 w-3" />
-                    Email
+                    Correo
                   </Button>
                   <Button
                     variant="ghost"
@@ -663,7 +663,7 @@ export default function CreateInvoicePage() {
                     className="font-light text-xs h-auto py-1 px-2"
                   >
                     <CreditCard className="mr-1 h-3 w-3" />
-                    Online Payment
+                    Pago Online
                   </Button>
                 </div>
                 <DropdownMenu>
@@ -673,12 +673,12 @@ export default function CreateInvoicePage() {
                       size="sm"
                       className="font-medium text-xs h-auto py-1.5 px-3"
                     >
-                      Save Invoice <ChevronDown className="ml-2 h-3 w-3" />
+                      Guardar Factura <ChevronDown className="ml-2 h-3 w-3" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="font-light">
-                    <DropdownMenuItem>Save as Draft</DropdownMenuItem>
-                    <DropdownMenuItem>Save and Send</DropdownMenuItem>
+                    <DropdownMenuItem>Guardar como Borrador</DropdownMenuItem>
+                    <DropdownMenuItem>Guardar y Enviar</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </CardHeader>
@@ -692,25 +692,25 @@ export default function CreateInvoicePage() {
                     <div className="flex justify-between items-start mb-6">
                       <div>
                         <h2 className="text-3xl font-bold text-primary mb-1">
-                          INVOICE
+                          FACTURA
                         </h2>
                         <p className="text-muted-foreground font-light">
                           {watchedValues.invoiceNumber || "#12346"}
                         </p>
                       </div>
-                      <div className="text-right">
+                      {/* <div className="text-right">
                         <Building className="h-8 w-8 text-primary inline-block mb-1" />
                         <p className="text-2xl font-bold text-foreground">
                           InvoiFix
                         </p>
-                      </div>
+                      </div> */}
                     </div>
 
                     {/* Project and Dates */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                       <div>
                         <p className="text-xs text-muted-foreground font-light uppercase tracking-wider">
-                          Project
+                          Proyecto
                         </p>
                         <p className="font-medium">
                           {watchedValues.projectName || "Fillo Product Design"}
@@ -718,7 +718,7 @@ export default function CreateInvoicePage() {
                       </div>
                       <div className="sm:text-center">
                         <p className="text-xs text-muted-foreground font-light uppercase tracking-wider">
-                          Issued Date
+                          Fecha de Emisión
                         </p>
                         <p className="font-medium">
                           {watchedValues.issueDate || "Feb 15, 2025"}
@@ -726,7 +726,7 @@ export default function CreateInvoicePage() {
                       </div>
                       <div className="sm:text-right">
                         <p className="text-xs text-muted-foreground font-light uppercase tracking-wider">
-                          Due Date
+                          Fecha de Vencimiento
                         </p>
                         <p className="font-medium">
                           {watchedValues.dueDate || "Feb 20, 2025"}
@@ -740,7 +740,7 @@ export default function CreateInvoicePage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 mb-8">
                       <div>
                         <p className="text-xs text-muted-foreground font-light uppercase tracking-wider mb-1">
-                          From
+                          De
                         </p>
                         <p className="font-semibold">
                           {watchedValues.myCompanyName || "Washim Chowdhury"}
@@ -752,7 +752,7 @@ export default function CreateInvoicePage() {
                       </div>
                       <div>
                         <p className="text-xs text-muted-foreground font-light uppercase tracking-wider mb-1">
-                          To
+                          Para
                         </p>
                         <p className="font-semibold">
                           {watchedValues.clientName || "Tony Stark"}
@@ -770,19 +770,19 @@ export default function CreateInvoicePage() {
                       <TableHeader>
                         <TableRow>
                           <TableHead className="font-semibold">
-                            Description
+                            Descripción
                           </TableHead>
                           <TableHead className="text-center font-semibold">
-                            Units
+                            Unidades
                           </TableHead>
                           <TableHead className="text-right font-semibold">
-                            Price
+                            Precio
                           </TableHead>
                           <TableHead className="text-right font-semibold">
-                            GST
+                            IVA
                           </TableHead>
                           <TableHead className="text-right font-semibold">
-                            Amount
+                            Importe
                           </TableHead>
                         </TableRow>
                       </TableHeader>
@@ -819,7 +819,7 @@ export default function CreateInvoicePage() {
                               colSpan={5}
                               className="text-center text-muted-foreground font-light py-4"
                             >
-                              No items added yet.
+                              No se han añadido artículos aún.
                             </TableCell>
                           </TableRow>
                         )}
@@ -836,7 +836,7 @@ export default function CreateInvoicePage() {
                           </span>
                         </div>
                         <div className="flex justify-between py-2 text-lg">
-                          <span className="font-semibold">Total Amount</span>
+                          <span className="font-semibold">Importe Total</span>
                           <span className="font-bold text-primary">
                             ${calculateTotalAmount().toFixed(2)}
                           </span>
@@ -848,7 +848,7 @@ export default function CreateInvoicePage() {
                     {watchedValues.notes && (
                       <div className="mb-6 p-3 bg-secondary/30 rounded-md">
                         <p className="text-xs font-semibold uppercase text-muted-foreground mb-1">
-                          Notes
+                          Notas
                         </p>
                         <p className="text-xs text-muted-foreground font-light whitespace-pre-line">
                           {watchedValues.notes}
@@ -860,7 +860,7 @@ export default function CreateInvoicePage() {
                     {watchedValues.paymentTerms && (
                       <div className="mb-6">
                         <p className="text-xs font-semibold uppercase text-muted-foreground mb-1">
-                          Payment Method
+                          Método de Pago
                         </p>
                         <p className="text-xs text-muted-foreground font-light whitespace-pre-line">
                           {watchedValues.paymentTerms}
@@ -888,7 +888,7 @@ export default function CreateInvoicePage() {
                         )}
                       </div>
                       <p className="text-xs text-muted-foreground font-light mt-2 sm:mt-0">
-                        Note: GST will be paid by me,{" "}
+                        Nota: El IVA será pagado por mí,{" "}
                         {watchedValues.clientName || "Tony Stark"}.
                       </p>
                     </div>
