@@ -2,12 +2,31 @@
 
 import { AppHeader } from "@/components/layout/AppHeader";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label"; // Keep if needed for other labels not in Form
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -19,7 +38,10 @@ import { useToast } from "@/hooks/use-toast";
 
 const ticketFormSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters").max(100),
-  description: z.string().min(10, "Description must be at least 10 characters").max(1000),
+  description: z
+    .string()
+    .min(10, "Description must be at least 10 characters")
+    .max(1000),
   priority: z.enum(["Low", "Medium", "High"]),
   userRole: z.enum(["Administrator", "Billing", "Technician", "Client"]),
   clientId: z.string().optional(), // Added clientId
@@ -53,34 +75,44 @@ export default function SubmitTicketPage() {
 
   return (
     <>
-      <AppHeader pageTitle="Submit Ticket" />
+      <AppHeader pageTitle="Enviar Ticket" />
       <main className="flex-1 p-6">
         <div className="mb-6">
           <Button variant="outline" asChild className="font-medium">
             <Link href="/tickets">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Tickets
+              Volver a Tickets
             </Link>
           </Button>
         </div>
         <Card className="max-w-2xl mx-auto shadow-lg">
           <CardHeader>
-            <CardTitle className="text-2xl font-headline font-semibold">Submit a New Ticket</CardTitle>
+            <CardTitle className="text-2xl font-headline font-semibold">
+              Enviar un Nuevo Ticket
+            </CardTitle>
             <CardDescription className="font-light">
-              Describe your issue or request below. Our team will get back to you as soon as possible.
+              Describa su problema o solicitud a continuación. Nuestro equipo se
+              pondrá en contacto con usted lo antes posible.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6"
+              >
                 <FormField
                   control={form.control}
                   name="title"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-medium">Title</FormLabel>
+                      <FormLabel className="font-medium">Título</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g., Unable to login" {...field} className="font-light bg-card" />
+                        <Input
+                          placeholder="p.ej., No se puede iniciar sesión"
+                          {...field}
+                          className="font-light bg-card"
+                        />
                       </FormControl>
                       <FormMessage className="font-light" />
                     </FormItem>
@@ -91,10 +123,10 @@ export default function SubmitTicketPage() {
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-medium">Description</FormLabel>
+                      <FormLabel className="font-medium">Descripción</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Please provide as much detail as possible..."
+                          placeholder="Proporcione tantos detalles como sea posible..."
                           rows={5}
                           {...field}
                           className="font-light bg-card"
@@ -110,17 +142,20 @@ export default function SubmitTicketPage() {
                     name="priority"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-medium">Priority</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormLabel className="font-medium">Prioridad</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger className="font-light bg-card">
-                              <SelectValue placeholder="Select priority" />
+                              <SelectValue placeholder="Seleccionar prioridad" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent className="font-light">
-                            <SelectItem value="Low">Low</SelectItem>
-                            <SelectItem value="Medium">Medium</SelectItem>
-                            <SelectItem value="High">High</SelectItem>
+                            <SelectItem value="Low">Baja</SelectItem>
+                            <SelectItem value="Medium">Media</SelectItem>
+                            <SelectItem value="High">Alta</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage className="font-light" />
@@ -132,16 +167,23 @@ export default function SubmitTicketPage() {
                     name="userRole"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-medium">I am reporting as a</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormLabel className="font-medium">
+                          Estoy informando como
+                        </FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger className="font-light bg-card">
-                              <SelectValue placeholder="Select your role" />
+                              <SelectValue placeholder="Seleccione su rol" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent className="font-light">
-                            {USER_ROLES.map(role => (
-                              <SelectItem key={role} value={role}>{role}</SelectItem>
+                            {USER_ROLES.map((role) => (
+                              <SelectItem key={role} value={role}>
+                                {role}
+                              </SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
@@ -157,19 +199,26 @@ export default function SubmitTicketPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="font-medium flex items-center">
-                        <UserSquare className="mr-2 h-4 w-4 text-muted-foreground" /> Associated Client (Optional)
+                        <UserSquare className="mr-2 h-4 w-4 text-muted-foreground" />{" "}
+                        Cliente asociado (Opcional)
                       </FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger className="font-light bg-card">
-                            <SelectValue placeholder="Select a client if applicable" />
+                            <SelectValue placeholder="Seleccione un cliente si corresponde" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="font-light">
-                          <SelectItem value="">None</SelectItem>
+                          <SelectItem value="">Ninguno</SelectItem>
                           {DUMMY_CLIENTS.map((client: Client) => (
                             <SelectItem key={client.id} value={client.id}>
-                              {client.firstName} {client.lastName} {client.companyName ? `(${client.companyName})` : ''}
+                              {client.firstName} {client.lastName}{" "}
+                              {client.companyName
+                                ? `(${client.companyName})`
+                                : ""}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -181,24 +230,41 @@ export default function SubmitTicketPage() {
 
                 <div>
                   <FormLabel className="font-medium flex items-center">
-                    <Paperclip className="mr-2 h-4 w-4 text-muted-foreground" /> Attach Files (Optional)
+                    <Paperclip className="mr-2 h-4 w-4 text-muted-foreground" />{" "}
+                    Adjuntar archivos (Opcional)
                   </FormLabel>
                   <div className="mt-2 flex justify-center rounded-lg border border-dashed border-input px-6 py-10 bg-card">
                     <div className="text-center">
                       <Paperclip className="mx-auto h-10 w-10 text-muted-foreground" />
                       <p className="mt-2 text-sm text-muted-foreground font-light">
-                        Drag & drop files here, or <Button variant="link" type="button" className="font-medium p-0 h-auto">click to browse</Button>
+                        Arrastre y suelte archivos aquí, o{" "}
+                        <Button
+                          variant="link"
+                          type="button"
+                          className="font-medium p-0 h-auto"
+                        >
+                          haga clic para buscar
+                        </Button>
                       </p>
-                      <p className="text-xs text-muted-foreground/80 font-light">Max file size: 5MB. Allowed types: JPG, PNG, PDF, DOCX.</p>
+                      <p className="text-xs text-muted-foreground/80 font-light">
+                        Tamaño máximo de archivo: 5MB. Tipos permitidos: JPG,
+                        PNG, PDF, DOCX.
+                      </p>
                       {/* Actual file input would be hidden and triggered by the button/drop */}
                       {/* <Input id="file-upload" name="file-upload" type="file" className="sr-only" /> */}
                     </div>
                   </div>
                 </div>
 
-                <Button type="submit" className="w-full md:w-auto font-medium" disabled={form.formState.isSubmitting}>
+                <Button
+                  type="submit"
+                  className="w-full md:w-auto font-medium"
+                  disabled={form.formState.isSubmitting}
+                >
                   <Send className="mr-2 h-4 w-4" />
-                  {form.formState.isSubmitting ? "Submitting..." : "Submit Ticket"}
+                  {form.formState.isSubmitting
+                    ? "Enviando..."
+                    : "Enviar Ticket"}
                 </Button>
               </form>
             </Form>

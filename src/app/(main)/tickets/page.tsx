@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -13,7 +12,9 @@ import Link from "next/link";
 
 export default function TicketsPage() {
   const [tickets, setTickets] = React.useState<Ticket[]>(initialTickets);
-  const [selectedTicket, setSelectedTicket] = React.useState<Ticket | null>(null);
+  const [selectedTicket, setSelectedTicket] = React.useState<Ticket | null>(
+    null
+  );
   const [isSheetOpen, setIsSheetOpen] = React.useState(false);
 
   const handleTicketSelect = (ticket: Ticket) => {
@@ -34,8 +35,8 @@ export default function TicketsPage() {
   };
 
   const handleTicketUpdate = (updatedTicket: Ticket) => {
-    setTickets(prevTickets => 
-      prevTickets.map(t => t.id === updatedTicket.id ? updatedTicket : t)
+    setTickets((prevTickets) =>
+      prevTickets.map((t) => (t.id === updatedTicket.id ? updatedTicket : t))
     );
     // If the updated ticket is the one currently in the sheet, update it there too
     if (selectedTicket && selectedTicket.id === updatedTicket.id) {
@@ -45,18 +46,21 @@ export default function TicketsPage() {
 
   return (
     <>
-      <AppHeader pageTitle="Support Tickets" />
+      <AppHeader pageTitle="Tickets de soporte" />
       <main className="flex-1 flex flex-col p-6 space-y-6 overflow-hidden">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-headline font-semibold">Ticket Kanban Board</h2>
+            <h2 className="text-2xl font-headline font-semibold">
+              Tablero Kanban de Tickets
+            </h2>
             <p className="text-muted-foreground font-light">
-              Visualize and manage support tickets through different stages.
+              Visualice y gestione los tickets de soporte a través de las
+              diferentes etapas.
             </p>
           </div>
           <Button asChild className="font-medium w-full sm:w-auto">
             <Link href="/tickets/submit">
-              <PlusCircle className="mr-2 h-5 w-5" /> Submit New Ticket
+              <PlusCircle className="mr-2 h-5 w-5" /> Enviar nuevo ticket
             </Link>
           </Button>
         </div>

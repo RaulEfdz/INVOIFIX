@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -7,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { InvoiceTable } from "@/components/invoices/InvoiceTable";
 import { InvoiceFilters } from "@/components/invoices/InvoiceFilters";
 import type { Invoice, InvoiceStatus } from "@/types";
-import { DUMMY_INVOICES } from "@/lib/constants"; 
+import { DUMMY_INVOICES } from "@/lib/constants";
 import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 
@@ -15,16 +14,22 @@ const ITEMS_PER_PAGE = 5;
 
 export default function InvoicesPage() {
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [statusFilter, setStatusFilter] = React.useState<InvoiceStatus | "all">("all");
+  const [statusFilter, setStatusFilter] = React.useState<InvoiceStatus | "all">(
+    "all"
+  );
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const filteredInvoices = React.useMemo(() => {
-    return DUMMY_INVOICES.filter(invoice => {
-      const matchesSearch = searchTerm.toLowerCase() === "" ||
-        invoice.invoiceNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    return DUMMY_INVOICES.filter((invoice) => {
+      const matchesSearch =
+        searchTerm.toLowerCase() === "" ||
+        invoice.invoiceNumber
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
         invoice.clientName.toLowerCase().includes(searchTerm.toLowerCase()) || // clientName is fine
         invoice.clientEmail.toLowerCase().includes(searchTerm.toLowerCase()); // clientEmail is fine
-      const matchesStatus = statusFilter === "all" || invoice.status === statusFilter;
+      const matchesStatus =
+        statusFilter === "all" || invoice.status === statusFilter;
       return matchesSearch && matchesStatus;
     });
   }, [searchTerm, statusFilter]);
@@ -38,26 +43,27 @@ export default function InvoicesPage() {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
-  
-  React.useEffect(() => {
-    setCurrentPage(1); 
-  }, [searchTerm, statusFilter]);
 
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, statusFilter]);
 
   return (
     <>
-      <AppHeader pageTitle="Invoices" />
+      <AppHeader pageTitle="Facturas" />
       <main className="flex-1 p-6 space-y-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-headline font-semibold">Invoice Management</h2>
+            <h2 className="text-2xl font-headline font-semibold">
+              Gestión de facturas
+            </h2>
             <p className="text-muted-foreground font-light">
-              View, manage, and track all your invoices.
+              Vea, gestione y rastree todas sus facturas.
             </p>
           </div>
           <Button asChild className="font-medium w-full sm:w-auto">
             <Link href="/invoices/create">
-              <PlusCircle className="mr-2 h-5 w-5" /> Create New Invoice
+              <PlusCircle className="mr-2 h-5 w-5" /> Crear nueva factura
             </Link>
           </Button>
         </div>
