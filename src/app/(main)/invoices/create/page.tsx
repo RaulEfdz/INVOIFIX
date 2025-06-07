@@ -164,7 +164,7 @@ export default function CreateInvoicePage() {
           <Button variant="outline" asChild className="font-medium">
             <Link href="/invoices">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Volver a las Facturas
+              Volver a Facturas
             </Link>
           </Button>
         </div>
@@ -303,7 +303,7 @@ export default function CreateInvoicePage() {
 
                   <AccordionItem value="item-3">
                     <AccordionTrigger className="font-medium">
-                      Invoice Details
+                      Detalles de la Factura
                     </AccordionTrigger>
                     <AccordionContent className="space-y-3 pt-3">
                       <div>
@@ -311,7 +311,7 @@ export default function CreateInvoicePage() {
                           htmlFor="invoiceNumber"
                           className="font-light text-xs"
                         >
-                          Invoice Number
+                          Número de Factura
                         </Label>
                         <Input
                           id="invoiceNumber"
@@ -330,7 +330,7 @@ export default function CreateInvoicePage() {
                             htmlFor="issueDate"
                             className="font-light text-xs"
                           >
-                            Issue Date
+                            Fecha de Emisión
                           </Label>
                           <Input
                             id="issueDate"
@@ -350,7 +350,7 @@ export default function CreateInvoicePage() {
                             htmlFor="dueDate"
                             className="font-light text-xs"
                           >
-                            Due Date
+                            Fecha de Vencimiento
                           </Label>
                           <Input
                             id="dueDate"
@@ -371,7 +371,7 @@ export default function CreateInvoicePage() {
                           htmlFor="projectName"
                           className="font-light text-xs"
                         >
-                          Project / Service Name
+                          Nombre del Proyecto / Servicio
                         </Label>
                         <Input
                           id="projectName"
@@ -384,7 +384,7 @@ export default function CreateInvoicePage() {
 
                   <AccordionItem value="item-items">
                     <AccordionTrigger className="font-medium">
-                      Line Items
+                      Artículos
                     </AccordionTrigger>
                     <AccordionContent className="space-y-3 pt-3">
                       {form.watch("items")?.map((item, index) => (
@@ -395,7 +395,7 @@ export default function CreateInvoicePage() {
                                 htmlFor={`items.${index}.description`}
                                 className="font-light text-xs"
                               >
-                                Description
+                                Descripción
                               </Label>
                               <Input
                                 id={`items.${index}.description`}
@@ -418,7 +418,7 @@ export default function CreateInvoicePage() {
                                   htmlFor={`items.${index}.units`}
                                   className="font-light text-xs"
                                 >
-                                  Units
+                                  Unidades
                                 </Label>
                                 <Input
                                   type="number"
@@ -432,7 +432,7 @@ export default function CreateInvoicePage() {
                                   htmlFor={`items.${index}.price`}
                                   className="font-light text-xs"
                                 >
-                                  Price
+                                  Precio
                                 </Label>
                                 <Input
                                   type="number"
@@ -446,7 +446,7 @@ export default function CreateInvoicePage() {
                                   htmlFor={`items.${index}.gst`}
                                   className="font-light text-xs"
                                 >
-                                  GST (%)
+                                  IVA (%)
                                 </Label>
                                 <Input
                                   type="number"
@@ -470,7 +470,7 @@ export default function CreateInvoicePage() {
                                 );
                               }}
                             >
-                              Remove Item
+                              Eliminar Artículo
                             </Button>
                           </div>
                         </Card>
@@ -485,7 +485,7 @@ export default function CreateInvoicePage() {
                           form.setValue("items", [
                             ...currentItems,
                             {
-                              description: "Item Description",
+                              description: "Descripción del Artículo",
                               units: 1,
                               price: 0,
                               gst: 0,
@@ -493,7 +493,7 @@ export default function CreateInvoicePage() {
                           ]);
                         }}
                       >
-                        Add Line Item
+                        Añadir Artículo
                       </Button>
                       {form.formState.errors.items &&
                         typeof form.formState.errors.items === "object" &&
@@ -507,14 +507,14 @@ export default function CreateInvoicePage() {
 
                   <AccordionItem value="item-4">
                     <AccordionTrigger className="font-medium">
-                      Payment Details
+                      Detalles de Pago
                     </AccordionTrigger>
                     <AccordionContent className="pt-3">
                       <Label
                         htmlFor="paymentTerms"
                         className="font-light text-xs"
                       >
-                        Payment Method / Terms
+                        Método / Términos de Pago
                       </Label>
                       <Textarea
                         id="paymentTerms"
