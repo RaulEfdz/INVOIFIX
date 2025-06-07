@@ -4,7 +4,7 @@ import { AppHeader } from "@/components/layout/AppHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Label } from "@/components/ui/label"; // Keep if needed for other labels not in Form
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -12,15 +12,17 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Link from "next/link";
-import { ArrowLeft, Send } from "lucide-react";
-import { USER_ROLES } from "@/lib/constants";
+import { ArrowLeft, Send, Paperclip, UserSquare } from "lucide-react";
+import { USER_ROLES, DUMMY_CLIENTS } from "@/lib/constants"; // Added DUMMY_CLIENTS
+import type { Client } from "@/types"; // Added Client type
 import { useToast } from "@/hooks/use-toast";
 
 const ticketFormSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters").max(100),
   description: z.string().min(10, "Description must be at least 10 characters").max(1000),
   priority: z.enum(["Low", "Medium", "High"]),
-  userRole: z.enum(["Administrator", "Billing", "Technician", "Client"]), // Assuming UserRole type from types/index.ts
+  userRole: z.enum(["Administrator", "Billing", "Technician", "Client"]),
+  clientId: z.string().optional(), // Added clientId
 });
 
 type TicketFormValues = z.infer<typeof ticketFormSchema>;
@@ -33,7 +35,8 @@ export default function SubmitTicketPage() {
       title: "",
       description: "",
       priority: "Medium",
-      userRole: "Client", // Default role, could be dynamically set based on logged-in user
+      userRole: "Client",
+      clientId: "",
     },
   });
 
@@ -42,11 +45,10 @@ export default function SubmitTicketPage() {
     // Here you would typically send the data to your backend
     toast({
       title: "Ticket Submitted!",
-      description: "Your support ticket has been successfully submitted.",
-      variant: "default", // or use a custom success variant if defined
+      description: `Your support ticket "${data.title}" has been successfully submitted.`,
+      variant: "default",
     });
-    form.reset(); 
-    // Potentially redirect or show a success message inline
+    form.reset();
   }
 
   return (
@@ -80,7 +82,7 @@ export default function SubmitTicketPage() {
                       <FormControl>
                         <Input placeholder="e.g., Unable to login" {...field} className="font-light bg-card" />
                       </FormControl>
-                      <FormMessage className="font-light"/>
+                      <FormMessage className="font-light" />
                     </FormItem>
                   )}
                 />
@@ -98,7 +100,7 @@ export default function SubmitTicketPage() {
                           className="font-light bg-card"
                         />
                       </FormControl>
-                      <FormMessage className="font-light"/>
+                      <FormMessage className="font-light" />
                     </FormItem>
                   )}
                 />
@@ -121,7 +123,7 @@ export default function SubmitTicketPage() {
                             <SelectItem value="High">High</SelectItem>
                           </SelectContent>
                         </Select>
-                        <FormMessage className="font-light"/>
+                        <FormMessage className="font-light" />
                       </FormItem>
                     )}
                   />
@@ -143,11 +145,57 @@ export default function SubmitTicketPage() {
                             ))}
                           </SelectContent>
                         </Select>
-                        <FormMessage className="font-light"/>
+                        <FormMessage className="font-light" />
                       </FormItem>
                     )}
                   />
                 </div>
+
+                <FormField
+                  control={form.control}
+                  name="clientId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-medium flex items-center">
+                        <UserSquare className="mr-2 h-4 w-4 text-muted-foreground" /> Associated Client (Optional)
+                      </FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger className="font-light bg-card">
+                            <SelectValue placeholder="Select a client if applicable" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="font-light">
+                          <SelectItem value="">None</SelectItem>
+                          {DUMMY_CLIENTS.map((client: Client) => (
+                            <SelectItem key={client.id} value={client.id}>
+                              {client.firstName} {client.lastName} {client.companyName ? `(${client.companyName})` : ''}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage className="font-light" />
+                    </FormItem>
+                  )}
+                />
+
+                <div>
+                  <FormLabel className="font-medium flex items-center">
+                    <Paperclip className="mr-2 h-4 w-4 text-muted-foreground" /> Attach Files (Optional)
+                  </FormLabel>
+                  <div className="mt-2 flex justify-center rounded-lg border border-dashed border-input px-6 py-10 bg-card">
+                    <div className="text-center">
+                      <Paperclip className="mx-auto h-10 w-10 text-muted-foreground" />
+                      <p className="mt-2 text-sm text-muted-foreground font-light">
+                        Drag & drop files here, or <Button variant="link" type="button" className="font-medium p-0 h-auto">click to browse</Button>
+                      </p>
+                      <p className="text-xs text-muted-foreground/80 font-light">Max file size: 5MB. Allowed types: JPG, PNG, PDF, DOCX.</p>
+                      {/* Actual file input would be hidden and triggered by the button/drop */}
+                      {/* <Input id="file-upload" name="file-upload" type="file" className="sr-only" /> */}
+                    </div>
+                  </div>
+                </div>
+
                 <Button type="submit" className="w-full md:w-auto font-medium" disabled={form.formState.isSubmitting}>
                   <Send className="mr-2 h-4 w-4" />
                   {form.formState.isSubmitting ? "Submitting..." : "Submit Ticket"}
