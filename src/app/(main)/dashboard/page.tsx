@@ -9,14 +9,9 @@ export default function DashboardPage() {
     <>
       <AppHeader pageTitle="Dashboard" />
       <main className="flex-1 p-6 space-y-6">
+        <QuickActions />
         <SummaryCards />
-        <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <QuickActions />
-          <RecentActivity />
-        </section>
-        <section>
-          <WelcomeCard />
-        </section>
+        <RecentActivity />
       </main>
     </>
   );
