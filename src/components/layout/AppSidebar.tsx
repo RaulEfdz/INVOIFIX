@@ -32,6 +32,8 @@ const navItems = [
   { href: "/invoices", label: "Facturas", icon: FileText },
   { href: "/tickets", label: "Tickets", icon: ClipboardList },
   { href: "/clients", label: "Clientes", icon: Users },
+  { href: "/client", label: "Cliente", icon: Users },
+  { href: "/team", label: "Equipo", icon: Users },
   { href: "/settings", label: "Configuración", icon: Settings },
 ];
 

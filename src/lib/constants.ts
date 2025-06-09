@@ -39,31 +39,31 @@ export const KANBAN_COLUMNS: {
 }[] = [
   {
     id: "New",
-    title: "New",
+    title: "Nuevo",
     headerColorClass:
       "bg-sky-100 dark:bg-sky-800/60 border-sky-300 dark:border-sky-700",
   },
   {
     id: "In Review",
-    title: "In Review",
+    title: "En Revisión",
     headerColorClass:
       "bg-amber-100 dark:bg-amber-800/60 border-amber-300 dark:border-amber-700",
   },
   {
     id: "In Progress",
-    title: "In Progress",
+    title: "En Progreso",
     headerColorClass:
       "bg-indigo-100 dark:bg-indigo-800/60 border-indigo-300 dark:border-indigo-700",
   },
   {
     id: "Resolved",
-    title: "Resolved",
+    title: "Resuelto",
     headerColorClass:
       "bg-emerald-100 dark:bg-emerald-800/60 border-emerald-300 dark:border-emerald-700",
   },
   {
     id: "Closed",
-    title: "Closed",
+    title: "Cerrado",
     headerColorClass:
       "bg-slate-200 dark:bg-slate-700/60 border-slate-400 dark:border-slate-600",
   },
@@ -561,9 +561,9 @@ export const DUMMY_TICKETS: Ticket[] = [
   {
     id: "t1",
     ticketNumber: "TKT001",
-    title: "Login button not working on Safari",
+    title: "El botón de inicio de sesión no funciona en Safari",
     description:
-      "Users on Safari are reporting that the login button is unresponsive. Tested on Safari 15.2.",
+      "Los usuarios de Safari informan que el botón de inicio de sesión no responde. Probado en Safari 15.2.",
     status: "New",
     priority: "High",
     submittedBy: "client1",
@@ -573,20 +573,24 @@ export const DUMMY_TICKETS: Ticket[] = [
     assignedTo: "TechGuy1",
     clientId: "client_001",
     relatedTasks: [
-      { id: "task_01", title: "Investigate Safari JS error" },
-      { id: "task_02", title: "Test on older Safari versions" },
+      { id: "task_01", title: "Investigar error JS en Safari" },
+      { id: "task_02", title: "Probar en versiones antiguas de Safari" },
     ],
     checklist: [
-      { id: "check_01", text: "Reproduce issue", completed: false },
-      { id: "check_02", text: "Check console logs", completed: false },
+      { id: "check_01", text: "Reproducir el problema", completed: false },
+      {
+        id: "check_02",
+        text: "Revisar los registros de la consola",
+        completed: false,
+      },
     ],
   },
   {
     id: "t2",
     ticketNumber: "TKT002",
-    title: "Invoice PDF generation error",
+    title: "Error en la generación de PDF de factura",
     description:
-      "Getting a 500 error when trying to download invoice #INV005 as PDF.",
+      "Se obtiene un error 500 al intentar descargar la factura #INV005 en PDF.",
     status: "In Progress",
     priority: "High",
     submittedBy: "billingTeamUser2",
@@ -600,9 +604,9 @@ export const DUMMY_TICKETS: Ticket[] = [
   {
     id: "t3",
     ticketNumber: "TKT003",
-    title: "Feature request: Dark mode",
+    title: "Solicitud de función: Modo oscuro",
     description:
-      "It would be great to have a dark mode option for the application interface.",
+      "Sería genial tener una opción de modo oscuro para la interfaz de la aplicación.",
     status: "In Review",
     priority: "Medium",
     submittedBy: "client3",
@@ -610,15 +614,15 @@ export const DUMMY_TICKETS: Ticket[] = [
     createdAt: "2024-07-25T09:15:00Z",
     updatedAt: "2024-07-26T16:00:00Z",
     clientId: "client_003",
-    relatedTasks: [{ id: "task_03", title: "Design dark mode palette" }],
+    relatedTasks: [{ id: "task_03", title: "Diseñar paleta de modo oscuro" }],
     checklist: [],
   },
   {
     id: "t4",
     ticketNumber: "TKT004",
-    title: "Typo on the contact page",
+    title: "Error tipográfico en la página de contacto",
     description:
-      "The phone number on the contact us page has a typo. It should be 555-1234, not 555-1235.",
+      "El número de teléfono en la página de contacto tiene un error tipográfico. Debería ser 555-1234, no 555-1235.",
     status: "Resolved",
     priority: "Low",
     submittedBy: "techSupportUser4",
@@ -627,17 +631,25 @@ export const DUMMY_TICKETS: Ticket[] = [
     updatedAt: "2024-07-25T10:00:00Z",
     assignedTo: "ContentEditor",
     checklist: [
-      { id: "check_03", text: "Verify correct phone number", completed: true },
-      { id: "check_04", text: "Update contact page", completed: true },
-      { id: "check_05", text: "Deploy changes", completed: true },
+      {
+        id: "check_03",
+        text: "Verificar número de teléfono correcto",
+        completed: true,
+      },
+      {
+        id: "check_04",
+        text: "Actualizar página de contacto",
+        completed: true,
+      },
+      { id: "check_05", text: "Desplegar cambios", completed: true },
     ],
   },
   {
     id: "t5",
     ticketNumber: "TKT005",
-    title: "Unable to update profile picture",
+    title: "No se puede actualizar la foto de perfil",
     description:
-      "When I try to upload a new profile picture, it shows an 'Upload failed' message.",
+      "Cuando intento subir una nueva foto de perfil, aparece un mensaje de 'Error al subir'.",
     status: "New",
     priority: "Medium",
     submittedBy: "client5",
@@ -650,9 +662,9 @@ export const DUMMY_TICKETS: Ticket[] = [
   {
     id: "t6",
     ticketNumber: "TKT006",
-    title: "Add recurring invoice option",
+    title: "Agregar opción de factura recurrente",
     description:
-      "Need ability to set up invoices that recur monthly or annually.",
+      "Necesidad de configurar facturas que se repitan mensualmente o anualmente.",
     status: "In Review",
     priority: "High",
     submittedBy: "billingManager",

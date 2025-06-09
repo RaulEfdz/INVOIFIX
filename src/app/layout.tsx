@@ -3,6 +3,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { AuthProvider } from "@/hooks/useAuth";
 
 export const metadata: Metadata = {
   title: "InvoiFix",
@@ -29,7 +30,9 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
-        <SidebarProvider>{children}</SidebarProvider>
+        <SidebarProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </SidebarProvider>
         <Toaster />
         <SonnerToaster />
       </body>
