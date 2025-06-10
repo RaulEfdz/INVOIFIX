@@ -7,12 +7,12 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "../../../../../components/ui/card";
+} from "../../../../components/ui/card";
 import { FileText } from "lucide-react";
 import {
   AnimatedDonutChart,
   type Item,
-} from "../../../../../components/charts/Pie/PieChart";
+} from "../../../../components/charts/Pie/PieChart";
 
 export function SummaryCards() {
   // Datos de ejemplo para los últimos 6 meses y semanas por mes para cada tarjeta

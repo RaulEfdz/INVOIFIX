@@ -14,7 +14,7 @@ export function ClientRouteGuard({ children }: ClientRouteGuardProps) {
 
   useEffect(() => {
     if (!user || user.role !== "Client") {
-      router.push("/login");
+      router.push("/client/login");
     }
   }, [user, router]);
 
