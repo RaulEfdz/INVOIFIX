@@ -79,7 +79,7 @@ export default function SubmitTicketPage() {
       <main className="flex-1 p-6">
         <div className="mb-6">
           <Button variant="outline" asChild className="font-medium">
-            <Link href="/tickets">
+            <Link href="/admin/tickets">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Volver a Tickets
             </Link>

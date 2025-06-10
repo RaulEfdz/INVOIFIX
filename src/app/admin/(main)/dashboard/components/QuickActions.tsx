@@ -4,8 +4,8 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+} from "../../../../../components/ui/card";
+import { Button } from "../../../../../components/ui/button";
 import { PlusCircle, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
@@ -13,42 +13,42 @@ import { FileText, Ticket, List, Settings, Users } from "lucide-react";
 
 const actions = [
   {
-    href: "/invoices/create",
+    href: "/admin/invoices/create",
     icon: PlusCircle,
     label: "Crear nueva factura",
   },
   {
-    href: "/tickets/submit",
+    href: "/admin/tickets/submit",
     icon: PlusCircle,
     label: "Enviar nuevo ticket",
   },
   {
-    href: "/invoices",
+    href: "/admin/invoices",
     icon: ArrowRight,
     label: "Ver todas las facturas",
   },
   {
-    href: "/tickets",
+    href: "/admin/tickets",
     icon: Ticket,
     label: "Ver todos los tickets",
   },
   {
-    href: "/clients",
+    href: "/admin/clients",
     icon: Users,
     label: "Gestionar clientes",
   },
   {
-    href: "/reports",
+    href: "/admin/reports",
     icon: List,
     label: "Ver reportes",
   },
   {
-    href: "/settings",
+    href: "/admin/settings",
     icon: Settings,
     label: "Configuración",
   },
   {
-    href: "/invoices/drafts",
+    href: "/admin/invoices/drafts",
     icon: FileText,
     label: "Borradores de facturas",
   },

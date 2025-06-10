@@ -13,12 +13,12 @@ import {
   Calendar,
   TrendingUp,
 } from "lucide-react";
-import EmployeeCard from "../../../components/team/EmployeeCard";
-import EmployeeDetail from "../../../components/team/EmployeeDetail";
-import AddEmployeeButton from "../../../components/team/AddEmployeeButton";
-import AddEmployeeModal from "../../../components/team/AddEmployeeModal";
-import RoleManagementButton from "../../../components/team/RoleManagementButton";
-import SettingsCard from "../../../components/team/SettingsCard";
+import EmployeeCard from "../../../../components/team/EmployeeCard";
+import EmployeeDetail from "../../../../components/team/EmployeeDetail";
+import AddEmployeeButton from "../../../../components/team/AddEmployeeButton";
+import AddEmployeeModal from "../../../../components/team/AddEmployeeModal";
+import RoleManagementButton from "../../../../components/team/RoleManagementButton";
+import SettingsCard from "../../../../components/team/SettingsCard";
 
 interface Employee {
   id: number;

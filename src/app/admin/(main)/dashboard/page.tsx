@@ -1,4 +1,4 @@
-import { AppHeader } from "@/components/layout/AppHeader";
+import { AppHeader } from "../../../../components/layout/AppHeader";
 import { SummaryCards } from "./components/SummaryCards";
 import { QuickActions } from "./components/QuickActions";
 import { RecentActivity } from "./components/RecentActivity";

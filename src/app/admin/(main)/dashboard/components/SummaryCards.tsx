@@ -2,12 +2,17 @@
 // Este componente muestra tarjetas de resumen con gráficos de facturas
 // que incluyen total de facturas, facturas pagadas y vencidas.
 import React, { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../../../../../components/ui/card";
 import { FileText } from "lucide-react";
 import {
   AnimatedDonutChart,
   type Item,
-} from "@/app/components/charts/Pie/PieChart";
+} from "../../../../../components/charts/Pie/PieChart";
 
 export function SummaryCards() {
   // Datos de ejemplo para los últimos 6 meses y semanas por mes para cada tarjeta

@@ -23,18 +23,24 @@ import {
   Settings,
   LogOut,
   Users,
+  User2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { userAgent } from "next/server";
 
 const navItems = [
-  { href: "/dashboard", label: "Panel", icon: LayoutDashboard },
-  { href: "/invoices", label: "Facturas", icon: FileText },
-  { href: "/tickets", label: "Tickets", icon: ClipboardList },
-  { href: "/clients", label: "Clientes", icon: Users },
+  { href: "/admin/dashboard", label: "Panel", icon: LayoutDashboard },
+  { href: "/admin/invoices", label: "Facturas", icon: FileText },
+  { href: "/admin/tickets", label: "Tickets", icon: ClipboardList },
+  { href: "/admin/clients", label: "Clientes", icon: Users },
+  { href: "/admin/team", label: "Equipo", icon: Users },
+  { href: "/admin/settings", label: "Configuración", icon: Settings },
+];
+
+const navAccessMode = [
   { href: "/client", label: "Cliente", icon: Users },
-  { href: "/team", label: "Equipo", icon: Users },
-  { href: "/settings", label: "Configuración", icon: Settings },
+  { href: "/employee", label: "Empleado", icon: User2 },
 ];
 
 export function AppSidebar() {
@@ -49,7 +55,7 @@ export function AppSidebar() {
       className="border-r"
     >
       <SidebarHeader className="flex items-center justify-between p-4">
-        <Link href="/dashboard" className="flex items-center gap-2">
+        <Link href="/admin/dashboard" className="flex items-center gap-2">
           <Image
             src="/logo.png"
             alt="InvoiFix Logo"
@@ -75,14 +81,14 @@ export function AppSidebar() {
                   className={cn(
                     "font-medium",
                     pathname === item.href ||
-                      (item.href !== "/dashboard" &&
+                      (item.href !== "/admin/dashboard" &&
                         pathname.startsWith(item.href))
                       ? "bg-sidebar-accent text-sidebar-accent-foreground"
                       : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                   )}
                   isActive={
                     pathname === item.href ||
-                    (item.href !== "/dashboard" &&
+                    (item.href !== "/admin/dashboard" &&
                       pathname.startsWith(item.href))
                   }
                   tooltip={{ children: item.label, className: "font-light" }}
@@ -96,6 +102,37 @@ export function AppSidebar() {
         </SidebarMenu>
       </SidebarContent>
       <Separator />
+
+      <Separator className="my-0" />
+      <SidebarContent className="flex-grow p-4">
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <span className="text-sm font-medium text-muted-foreground">
+              Modo de acceso
+            </span>
+          </SidebarMenuItem>
+          {navAccessMode.map((item) => (
+            <SidebarMenuItem key={item.href}>
+              <Link href={item.href} legacyBehavior passHref>
+                <SidebarMenuButton
+                  className={cn(
+                    "font-medium",
+                    pathname === item.href
+                      ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                  )}
+                  isActive={pathname === item.href}
+                  tooltip={{ children: item.label, className: "font-light" }}
+                >
+                  <item.icon className="h-5 w-5" />
+                  <span className="truncate">{item.label}</span>
+                </SidebarMenuButton>
+              </Link>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarContent>
+
       <SidebarFooter className="p-4">
         <Link href="/profile" legacyBehavior passHref>
           <SidebarMenuButton

@@ -10,7 +10,7 @@ export default function TicketDetailPageRedirect() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/tickets");
+    router.replace("/admin/tickets");
   }, [router]);
 
   return (
@@ -21,7 +21,7 @@ export default function TicketDetailPageRedirect() {
       </p>
       <p className="text-muted-foreground">
         Si no se le redirige,{" "}
-        <a href="/tickets" className="text-primary hover:underline">
+        <a href="/admin/tickets" className="text-primary hover:underline">
           haga clic aquí
         </a>
         .
