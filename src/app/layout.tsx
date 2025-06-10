@@ -29,7 +29,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-body antialiased">
+      <body className="font-body antialiased w-full min-h-screen bg-background text-foreground">
         <SidebarProvider>
           <AuthProvider>{children}</AuthProvider>
         </SidebarProvider>

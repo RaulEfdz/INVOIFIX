@@ -13,42 +13,42 @@ import { FileText, Ticket, List, Settings, Users } from "lucide-react";
 
 const actions = [
   {
-    href: "/admin/invoices/create",
+    href: "/invoices/create",
     icon: PlusCircle,
     label: "Crear nueva factura",
   },
   {
-    href: "/admin/tickets/submit",
+    href: "/tickets/submit",
     icon: PlusCircle,
     label: "Enviar nuevo ticket",
   },
   {
-    href: "/admin/invoices",
+    href: "/invoices",
     icon: ArrowRight,
     label: "Ver todas las facturas",
   },
   {
-    href: "/admin/tickets",
+    href: "/tickets",
     icon: Ticket,
     label: "Ver todos los tickets",
   },
   {
-    href: "/admin/clients",
+    href: "/clients",
     icon: Users,
     label: "Gestionar clientes",
   },
   {
-    href: "/admin/reports",
+    href: "/reports",
     icon: List,
     label: "Ver reportes",
   },
   {
-    href: "/admin/settings",
+    href: "/settings",
     icon: Settings,
     label: "Configuración",
   },
   {
-    href: "/admin/invoices/drafts",
+    href: "/invoices/drafts",
     icon: FileText,
     label: "Borradores de facturas",
   },

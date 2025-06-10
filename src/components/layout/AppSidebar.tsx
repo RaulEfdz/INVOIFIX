@@ -30,12 +30,12 @@ import Image from "next/image";
 import { userAgent } from "next/server";
 
 const navItems = [
-  { href: "/admin/dashboard", label: "Panel", icon: LayoutDashboard },
-  { href: "/admin/invoices", label: "Facturas", icon: FileText },
-  { href: "/admin/tickets", label: "Tickets", icon: ClipboardList },
-  { href: "/admin/clients", label: "Clientes", icon: Users },
-  { href: "/admin/team", label: "Equipo", icon: Users },
-  { href: "/admin/settings", label: "Configuración", icon: Settings },
+  { href: "/dashboard", label: "Panel", icon: LayoutDashboard },
+  { href: "/invoices", label: "Facturas", icon: FileText },
+  { href: "/tickets", label: "Tickets", icon: ClipboardList },
+  { href: "/clients", label: "Clientes", icon: Users },
+  { href: "/team", label: "Equipo", icon: Users },
+  { href: "/settings", label: "Configuración", icon: Settings },
 ];
 
 const navAccessMode = [
@@ -55,7 +55,7 @@ export function AppSidebar() {
       className="border-r"
     >
       <SidebarHeader className="flex items-center justify-between p-4">
-        <Link href="/admin/dashboard" className="flex items-center gap-2">
+        <Link href="/dashboard" className="flex items-center gap-2">
           <Image
             src="/logo.png"
             alt="InvoiFix Logo"
@@ -81,14 +81,14 @@ export function AppSidebar() {
                   className={cn(
                     "font-medium",
                     pathname === item.href ||
-                      (item.href !== "/admin/dashboard" &&
+                      (item.href !== "/dashboard" &&
                         pathname.startsWith(item.href))
                       ? "bg-sidebar-accent text-sidebar-accent-foreground"
                       : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                   )}
                   isActive={
                     pathname === item.href ||
-                    (item.href !== "/admin/dashboard" &&
+                    (item.href !== "/dashboard" &&
                       pathname.startsWith(item.href))
                   }
                   tooltip={{ children: item.label, className: "font-light" }}

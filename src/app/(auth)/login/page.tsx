@@ -21,7 +21,7 @@ export default function LoginPage() {
     // For now, redirect to dashboard on successful login (simulated)
     // This client-side redirect is for demo purposes.
     // Proper auth flow would involve server actions / API calls.
-    window.location.href = "/admin/dashboard";
+    window.location.href = "/dashboard";
   };
 
   return (

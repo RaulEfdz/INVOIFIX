@@ -59,7 +59,7 @@ export default function TicketsPage() {
             </p>
           </div>
           <Button asChild className="font-medium w-full sm:w-auto">
-            <Link href="/admin/tickets/submit">
+            <Link href="/tickets/submit">
               <PlusCircle className="mr-2 h-5 w-5" /> Enviar nuevo ticket
             </Link>
           </Button>
