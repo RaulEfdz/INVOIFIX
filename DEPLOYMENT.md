@@ -17,14 +17,11 @@ Configura las siguientes variables de entorno en tu proyecto de Vercel:
 GOOGLE_GENAI_API_KEY=tu_clave_api_de_google_ai
 ```
 
-### Firebase (si se usa)
+### Supabase (Base de Datos)
 ```
-NEXT_PUBLIC_FIREBASE_API_KEY=tu_clave_api_firebase
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=tu_proyecto.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=tu_id_proyecto
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=tu_proyecto.appspot.com
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=tu_sender_id
-NEXT_PUBLIC_FIREBASE_APP_ID=tu_app_id
+NEXT_PUBLIC_SUPABASE_URL=tu_url_proyecto_supabase
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_clave_anonima_supabase
+SUPABASE_SERVICE_ROLE_KEY=tu_clave_service_role_supabase
 ```
 
 ### Configuración de Entorno

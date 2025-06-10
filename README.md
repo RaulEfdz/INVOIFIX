@@ -21,7 +21,7 @@ Sistema completo de gestión empresarial desarrollado con Next.js 15, que incluy
 - **UI Components**: Radix UI + shadcn/ui
 - **Charts**: Recharts + D3.js
 - **AI Integration**: Google Genkit
-- **Database**: Firebase (opcional)
+- **Database**: Supabase (PostgreSQL)
 - **Deployment**: Optimizado para Vercel
 
 ## 📦 Instalación
@@ -145,11 +145,10 @@ npm run typecheck        # Verificación de tipos
 # Google AI (Genkit)
 GOOGLE_GENAI_API_KEY=tu_clave_api
 
-# Firebase (opcional)
-NEXT_PUBLIC_FIREBASE_API_KEY=tu_clave
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=proyecto.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=tu_proyecto_id
-# ... más configuraciones de Firebase
+# Supabase (Base de Datos)
+NEXT_PUBLIC_SUPABASE_URL=tu_url_proyecto_supabase
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_clave_anonima_supabase
+SUPABASE_SERVICE_ROLE_KEY=tu_clave_service_role_supabase
 
 # Entorno
 NODE_ENV=production
